@@ -19,7 +19,7 @@ $noImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_a
 
 $images = [
     ['id' => '1', 'img' => 'https://24shop.by/images/cache/286/_thumb_180x180xtrim_upload_iblock_286_28645e4ca35135ed3d2b29cf1b4a62bc.jpeg'],
-    ['id' => '2', 'img' => 'h___ttps://supercomp.kiev.ua/img/item_foto/bbb/08/U0106900.jpg'],
+    ['id' => '2', 'img' => 'https://supercomp.kiev.ua/img/item_foto/bbb/08/U0106900.jpg'],
     ['id' => '3', 'img' => 'img/notebook.jpg'],
     ['id' => '4', 'img' => 'img/printer.jpg'],
     ['id' => '7', 'img' => 'img/wardrobe.jpg'],
@@ -29,13 +29,6 @@ $images = [
 $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
 
 
-
-
-// 1) Вывести все товары ввиде карточек - шаблон 1.
-//    выводим развание, описание для всех $description и цену
-// 2) Цену расчитать со скидкой указаной в % колонка 'disc'.
-// 3) Если товара меньше 2-х, скидка не дается. Кол-во на складе это 'stock'.
-// 4) Если товара нет, то вместо цены выводим - "нет в наличии"
 $price_disc=0;
 foreach ($items as $item) {
     if ($item['stock']==0) {
@@ -52,6 +45,13 @@ foreach ($items as $item) {
     <div class="card-header bg-transparent border-success">Header</div>
     <div class="card-body text-success">
         <h5 class="card-title"><?php echo $item['name'] ?></h5>
+        <?php foreach ($images as $image) {
+                if ($item['id']==$image['id']) {
+                    $image_card=$image['img'];
+                }
+        }    
+        ?>
+        <img class="card-img-top" src="<?php echo $image_card?>" alt="textNoImage">
         <p class="card-text"><?php echo $description ?></p>
         <p class="card-text"><?php echo $price_disc ?></p>
     </div>
@@ -92,20 +92,4 @@ echo '
     </tbody>
 </table>
 ';
-
-// 6*) Вывести в карточке картинку товара, посмотреть на https://getbootstrap.com/docs/4.1/components/card/
-//     Имена файлов или ссылки добавить в таблицу $images в поле 'img'. Для товара у которого нет картинки
-//     в списке вывести - $noImage
-foreach ($images as $image) {
-echo '
-<div class="card" style="width: 18rem;">
-<img class="card-img-top" src="'.$image['img'].'" alt="noImage">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
-        <a href=" " class="btn btn-primary">Go somewhere</a>
-    </div>
-</div>
-';
-}
 ?>
