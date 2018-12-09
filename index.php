@@ -30,6 +30,7 @@ $description = "Some quick example text to build on the card title and make up t
 
 
 $price_disc=0;
+$image_card=null;
 foreach ($items as $item) {
     if ($item['stock']==0) {
         $price_disc='нет в наличии';
@@ -48,9 +49,14 @@ foreach ($items as $item) {
         <?php foreach ($images as $image) {
                 if ($item['id']==$image['id']) {
                     $image_card=$image['img'];
+                    break;
+                    //if (!isset($image['img'])) $image_card=$noImage;                    
+                } else {
+                    $image_card=$noImage;
                 }
-        }    
-        ?>
+        }
+
+?>
         <img class="card-img-top" src="<?php echo $image_card?>" alt="textNoImage">
         <p class="card-text"><?php echo $description ?></p>
         <p class="card-text"><?php echo $price_disc ?></p>
