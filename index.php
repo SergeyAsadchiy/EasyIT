@@ -27,11 +27,15 @@ $images = [
 ];
 
 $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
-
-
+echo '
+<div class="container">
+    <div class="row">
+' ;          
 $price_disc=0;
 $image_card=null;
+
 foreach ($items as $item) {
+// calculation of price
     if ($item['stock']==0) {
         $price_disc='нет в наличии';
     } else {
@@ -40,13 +44,10 @@ foreach ($items as $item) {
         } else {
             $price_disc=$item['price']*(1-$item['disc']/100);
         }
-    }       
-?>
-    <div class="card border-success mb-3" style="max-width: 18rem;">
-    <div class="card-header bg-transparent border-success">Header</div>
-    <div class="card-body text-success">
-        <h5 class="card-title"><?php echo $item['name'] ?></h5>
-        <?php foreach ($images as $image) {
+    } 
+
+// sabstitution of picrures
+    foreach ($images as $image) {
                 if ($item['id']==$image['id']) {
                     $image_card=$image['img'];
                     break;
@@ -55,19 +56,24 @@ foreach ($items as $item) {
                     $image_card=$noImage;
                 }
         }
-
 ?>
-        <img class="card-img-top" src="<?php echo $image_card?>" alt="textNoImage">
-        <p class="card-text"><?php echo $description ?></p>
-        <p class="card-text"><?php echo $price_disc ?></p>
-    </div>
-    <div class="card-footer bg-transparent border-success">Footer</div>
-    </div>
-
+        <div class="col-sm-4">
+            <div class="card border-success mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-transparent border-success">Колличество товара: <?php echo $item['stock'] ?></div>
+                <div class="card-body text-success">
+                    <h5 class="card-title"><?php echo $item['name'] ?></h5>
+                    <img class="card-img-top" src="<?php echo $image_card?>" alt="textNoImage">
+                    <p class="card-text"><?php echo $description ?></p>
+                </div>
+                <div class="card-footer bg-transparent border-success">Цена - <?php echo $price_disc ?> грн.</div>
+            </div>
+        </div>  
 <?php
 }
-
-
+echo'
+    </div>
+</div> 
+' ;
 // 5) Вывести все поля товаров в виде таблицы
 echo '
 <table class="table table-bordered">
@@ -98,4 +104,4 @@ echo '
     </tbody>
 </table>
 ';
-?>
+
