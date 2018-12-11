@@ -33,6 +33,7 @@ echo '
 ' ;          
 $price_disc=0;
 $image_card=null;
+$fileName=fopen("newFile.csv","a");
 
 foreach ($items as $item) {
 // calculation of price
@@ -57,7 +58,9 @@ foreach ($items as $item) {
                 }
         }
 ?>
-        <div class="col-sm-4">
+        <div class="col-md-4 col-sm-12">
+
+        <!--  Вывод карточки  -->
             <div class="card border-success mb-3" style="max-width: 18rem;">
                 <div class="card-header bg-transparent border-success">Колличество товара: <?php echo $item['stock'] ?></div>
                 <div class="card-body text-success">
@@ -67,9 +70,26 @@ foreach ($items as $item) {
                 </div>
                 <div class="card-footer bg-transparent border-success">Цена - <?php echo $price_disc ?> грн.</div>
             </div>
+
         </div>  
 <?php
+
+
+//запись в *.csv файл
+$fileDate=date("m.d.Y - H:i:s");
+fwrite($fileName,$fileDate.';');
+foreach ($item as $it) {
+	$write=$it.';'; 
+	
+	fwrite($fileName,$write);
+}	
+fwrite($fileName,$write. PHP_EOL);
+
+
+
 }
+fclose("newFile.csv");
+
 echo'
     </div>
 </div> 
@@ -104,4 +124,6 @@ echo '
     </tbody>
 </table>
 ';
+
+?>
 
