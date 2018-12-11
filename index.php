@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<a href="http://easy-it-courses.com/sumy/it-courses/PhpJunior">EasyIT</a><br>
+<a href="https://www.facebook.com/groups/189801585296608/?ref=bookmarks">Facebook: PHP Junior 30/11/18</a>
 
 <?php
+
 
 
 $items = [
