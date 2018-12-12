@@ -43,48 +43,16 @@
 	</ul>
 </nav>
 
-
-<?php
-
-
-
-$items = [
-    ['id' => '1', 'name' => 'Монитор',      'price' => '1200.00', 'stock' => '5', 'disc' => '10'],
-    ['id' => '2', 'name' => 'Компьютер',    'price' => '4200.00', 'stock' => '7', 'disc' => '10'],
-    ['id' => '3', 'name' => 'Ноутбук',      'price' => '7700.00', 'stock' => '2', 'disc' => '10'],
-    ['id' => '4', 'name' => 'Принтер',      'price' => '1800.00', 'stock' => '1', 'disc' => '10'],
-    ['id' => '5', 'name' => 'Стол',         'price' => '1100.00', 'stock' => '0', 'disc' => '20'],
-    ['id' => '6', 'name' => 'Стул',         'price' => '2200.00', 'stock' => '0', 'disc' => '20'],
-    ['id' => '7', 'name' => 'Шкаф',         'price' => '1260.00', 'stock' => '8', 'disc' => '20'],
-    ['id' => '8', 'name' => 'Кресло',       'price' => '4250.00', 'stock' => '9', 'disc' => '20'],
-    ['id' => '9', 'name' => 'Диван',        'price' => '9800.00', 'stock' => '1', 'disc' => '30'],
-];
-
-$noImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png';
-
-$images = [
-    ['id' => '1', 'img' => 'https://24shop.by/images/cache/286/_thumb_180x180xtrim_upload_iblock_286_28645e4ca35135ed3d2b29cf1b4a62bc.jpeg'],
-    ['id' => '2', 'img' => 'https://supercomp.kiev.ua/img/item_foto/bbb/08/U0106900.jpg'],
-    ['id' => '3', 'img' => 'img/notebook.jpg'],
-    ['id' => '4', 'img' => 'img/printer.jpg'],
-    ['id' => '7', 'img' => 'img/wardrobe.jpg'],
-    ['id' => '8', 'img' => 'img/armchair.jpg']
-];
-
-$description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
-echo '
 <div class="container">
     <div class="row">
-' ;          
-foreach ($items as $item) {
-	$item['priceDisc']=getPrice($item);
-	$item['img']=getImage($images,$item,$noImage);  
-	include 'template/card.php';
-}
-echo'
+      <?php          
+          foreach ($items as $item) {
+	           include 'template/card.php';
+          }
+      ?>
     </div>
 </div> 
-' ;
+
 // 5) Вывести все поля товаров в виде таблицы
 echo '
 <table class="table table-bordered">
