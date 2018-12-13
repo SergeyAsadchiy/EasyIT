@@ -11,11 +11,11 @@ $items = [
     ['id' => '9', 'name' => 'Диван',        'price' => '9800.00', 'stock' => '1', 'disc' => '30'],
 ];
 
-$noImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png';
+$noImage = 'img/Noimage.png';
 
 $images = [
-    ['id' => '1', 'img' => 'https://24shop.by/images/cache/286/_thumb_180x180xtrim_upload_iblock_286_28645e4ca35135ed3d2b29cf1b4a62bc.jpeg'],
-    ['id' => '2', 'img' => 'https://supercomp.kiev.ua/img/item_foto/bbb/08/U0106900.jpg'],
+    ['id' => '1', 'img' => 'img/monitor.jpeg'],
+    ['id' => '2', 'img' => 'img/computer.jpg'],
     ['id' => '3', 'img' => 'img/notebook.jpg'],
     ['id' => '4', 'img' => 'img/printer.jpg'],
     ['id' => '7', 'img' => 'img/wardrobe.jpg'],
@@ -24,17 +24,17 @@ $images = [
 
 $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
 
-
 foreach ($items as &$item) {
 	//$item['priceDisc']=getPrice($item);
-	//$item['img']=getImage($images,$item,$noImage);
+	//$item['img']=getImage($images,$item,$noImage);	
 
 	$priceDisc=getPrice($item);//рассчет цены со скидкой
 	$priceImg=getImage($images,$item,$noImage);//выбор картинки для товара
-	$item=writeArrItem($item,$priceDisc,$priceImg);//добавление цены со скидкой и кртинки в массив товаров
+	$item=writeArrItem($item,$priceDisc,$priceImg);//добавление цены со скидкой и картинки в массив товаров
 }
 
 include 'template/template.php';
+
 
 
 //-------------------------------------------------------------------

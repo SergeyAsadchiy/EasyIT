@@ -4,10 +4,10 @@
 
 <div class="container">
     <div class="row">
-      <?php          
-          foreach ($items as $item) {
-	           include 'template/card.php';
-          }
+      <?php 
+        foreach ($items as &$item) {
+    	    include 'template/card1.php';
+        }
       ?>
     </div>
 </div> 
