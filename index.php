@@ -25,7 +25,7 @@ $images = [
 $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
 
 /* 
-// Вариант с foreach через промежуточный массив $result
+//--------- Вариант с foreach через промежуточный массив $result
 $result=[];
 foreach ($items as $item) {
 	$priceDisc=getPrice($item);//рассчет цены со скидкой
@@ -34,7 +34,7 @@ foreach ($items as $item) {
 }*/
 
 /*
-// Вариант через array_map и безимянную функцию. !-объявлены global переменные
+//--------- Вариант через array_map и безимянную функцию. !-объявлены global переменные
 $items=array_map(function($item) {
     global $images;
     global $noImage;
@@ -44,7 +44,7 @@ $items=array_map(function($item) {
     return($item);
 },$items);*/
 
-// Вариант через array_map и функцию. !-объявлены global переменные
+//--------- Вариант через array_map и функцию.
 $items=array_map('writeArrItemPriceAndImage',$items);
 
 include 'template/template.php';
