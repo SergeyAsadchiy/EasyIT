@@ -10,7 +10,7 @@
     </thead>
     <tbody>    <br>
 <?php
-  foreach ($items as &$item) {
+  foreach ($items as $item) {
     echo'
     <tr>
         <th>'.$item['id'].'</th>

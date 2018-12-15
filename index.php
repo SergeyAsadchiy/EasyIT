@@ -23,19 +23,15 @@ $images = [
 ];
 
 $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
-
-foreach ($items as &$item) {
-	//$item['priceDisc']=getPrice($item);
-	//$item['img']=getImage($images,$item,$noImage);	
-
+//$result=[];
+foreach ($items as $item) {
 	$priceDisc=getPrice($item);//рассчет цены со скидкой
 	$priceImg=getImage($images,$item,$noImage);//выбор картинки для товара
-	$item=writeArrItem($item,$priceDisc,$priceImg);//добавление цены со скидкой и картинки в массив товаров
+	$result[]=writeArrItem($item,$priceDisc,$priceImg);
 }
+    $items=$result;
 
 include 'template/template.php';
-
-
 
 //-------------------------------------------------------------------
 function getPrice($itemPrice)
