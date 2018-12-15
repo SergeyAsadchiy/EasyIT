@@ -23,13 +23,29 @@ $images = [
 ];
 
 $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
-//$result=[];
+
+/* 
+// Вариант с foreach через промежуточный массив $result
+$result=[];
 foreach ($items as $item) {
 	$priceDisc=getPrice($item);//рассчет цены со скидкой
 	$priceImg=getImage($images,$item,$noImage);//выбор картинки для товара
 	$result[]=writeArrItem($item,$priceDisc,$priceImg);
-}
-    $items=$result;
+}*/
+
+/*
+// Вариант через array_map и безимянную функцию. !-объявлены global переменные
+$items=array_map(function($item) {
+    global $images;
+    global $noImage;
+    $priceDisc=getPrice($item);//рассчет цены со скидкой
+    $itemImage=getImage($images,$item,$noImage);//выбор картинки для товара
+    $item=writeArrItem($item,$priceDisc,$itemImage);//добавление новых элементов в массив
+    return($item);
+},$items);*/
+
+// Вариант через array_map и функцию. !-объявлены global переменные
+$items=array_map('writeArrItemPriceAndImage',$items);
 
 include 'template/template.php';
 
@@ -66,4 +82,16 @@ function writeArrItem($f_ArrItem,$f_WrPriceDisc,$f_WrImages)
 	$f_ArrItem['img']=$f_WrImages;
 	return($f_ArrItem);
 }
+
+function writeArrItemPriceAndImage($f_item){
+    global $images;
+    global $noImage;
+    $priceDisc=getPrice($f_item);//рассчет цены со скидкой
+    $itemImage=getImage($images,$f_item,$noImage);//выбор картинки для товара
+    $f_item['priceDisc']=$priceDisc;//добавление нового элемента 'priceDisc' в массив
+    $f_item['img']=$itemImage;//добавление нового элемента 'img' в массив
+    return $f_item;
+}
 ?>
+
+
