@@ -6,6 +6,8 @@ $images=getDataImages();
 include 'config/config.php';
 $noImage=getNoImage();
 
+//echo getcwd();
+
 function indexHome(){
     global $items;
     $items=array_map('writeArrItemPriceAndImage',$items);

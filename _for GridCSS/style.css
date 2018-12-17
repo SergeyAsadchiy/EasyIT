@@ -1,0 +1,27 @@
+
+header {
+	background-color: #eee;
+	text-align: justify;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 8px;
+	height: auto;
+}
+
+body {
+			
+}
+
+footer {
+	background-color: #eee;
+	text-align: justify;
+}
+.container-cards {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+

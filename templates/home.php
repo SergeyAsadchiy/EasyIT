@@ -4,7 +4,6 @@
 ?>
 
 <main>
-
 	<article>
 	<div class="container">
 	    <div class="row">
@@ -17,6 +16,5 @@
 	</div>
 	</article>
 
-	<aside></aside>
-
+	<aside> </aside>
 </main>

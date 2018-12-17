@@ -7,7 +7,8 @@ indexHome();
 
 
 /* 
-//--------- Вариант с foreach через промежуточный массив $result
+//--------- Вариант с foreach через промежуточный массив $result. 
+//  ! раскомментировать функцию writeArrItem()  в 'controllers/home.php'!
 $result=[];
 foreach ($items as $item) {
 	$priceDisc=getPrice($item);//рассчет цены со скидкой
@@ -17,7 +18,9 @@ foreach ($items as $item) {
 
 
 /*
-//--------- Вариант через array_map и безимянную функцию. !-объявлены global переменные
+//--------- Вариант через array_map и безимянную функцию. 
+//  ! объявлены global переменные
+//  ! раскомментировать функцию writeArrItem()  в 'controllers/home.php'!
 $items=array_map(function($item) {
     global $images;
     global $noImage;
