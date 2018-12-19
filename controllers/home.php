@@ -1,13 +1,14 @@
 <?php
 include 'models/model.php'; 
 include 'config/config.php';
-$noImage=getNoImage();
+
 
 //echo getcwd();
 
 function indexHome(){
     $items=getDataItems();
     $images=getDataImages();
+    $noImage=getNoImage();
     $items=array_map('writeArrItemPriceAndImage',$items);
 
     include 'templates/header.php';
@@ -43,8 +44,8 @@ function getImage($f_images,$f_item,$f_NoImage)
 }
 
 function writeArrItemPriceAndImage($f_item){
-    global $images;
-    global $noImage;
+    $images=getDataImages();
+    $noImage=getNoImage();
     $priceDisc=getPrice($f_item);//рассчет цены со скидкой
     $itemImage=getImage($images,$f_item,$noImage);//выбор картинки для товара
     $f_item['priceDisc']=$priceDisc;//добавление нового элемента 'priceDisc' в массив
