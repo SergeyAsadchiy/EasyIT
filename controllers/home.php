@@ -1,15 +1,13 @@
 <?php
 include 'models/model.php'; 
-$items=getDataItems();
-$images=getDataImages();
-
 include 'config/config.php';
 $noImage=getNoImage();
 
 //echo getcwd();
 
 function indexHome(){
-    global $items;
+    $items=getDataItems();
+    $images=getDataImages();
     $items=array_map('writeArrItemPriceAndImage',$items);
 
     include 'templates/header.php';

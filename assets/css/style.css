@@ -1,2 +1,8 @@
-
+/*body{
+	color: red;
+}
+header{
+	background: url(../images/first-bg.jpg) no-repeat center top / cover ;
+	height: 600px;
+}
 
