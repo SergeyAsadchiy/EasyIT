@@ -9,12 +9,11 @@
 	    <div class="row">
 	      	<?php 
 	        	foreach ($items as $item) {
-	    	    	include 'components/card1.php';
+	    	    	include 'components/card.php';
 	        	}
 	      	?>
 	    </div>
 	</div>
 	</article>
-
-	<aside> </aside>
+	
 </main>

@@ -1,9 +1,6 @@
 <?php
-include 'models/model.php'; 
-include 'config/config.php';
+require 'models/model.php'; 
 
-
-//echo getcwd();
 
 function indexHome(){
     $items=getDataItems();
@@ -53,13 +50,5 @@ function writeArrItemPriceAndImage($f_item){
     return $f_item;
 }
 
-/*
-// функция нужна если добавление в массив делать через промежуточный массив result[] или через array_map и безимянную функцию.
-function writeArrItem($f_ArrItem,$f_WrPriceDisc,$f_WrImages)
-{   
-    $f_ArrItem['priceDisc']=$f_WrPriceDisc;
-    $f_ArrItem['img']=$f_WrImages;
-    return($f_ArrItem);
-}*/
 ?>
 

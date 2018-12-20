@@ -1,5 +1,8 @@
 <?php 
 
-function getNoImage() {return $f_noImage='assets/images/Noimage.png';}
+function getNoImage() {
+	$f_noImage='assets/images/Noimage.png';
+	return $f_noImage='assets/images/Noimage.png';
+}
 
 ?>
