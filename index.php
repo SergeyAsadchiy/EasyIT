@@ -4,7 +4,7 @@ require 'controllers/home.php';
 indexHome();
 
 
-
+//----------------------------------------------------
 $str='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit itaque, sequi accusamus molestias laudantium accusantium minus animi excepturi nobis esse ex recusandae maxime optio rem, neque amet voluptatibus, enim adipisci. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit itaque, sequi accusamus molestias laudantium accusantium minus animi excepturi nobis esse ex recusandae maxime optio rem, neque amet voluptatibus, enim adipisci.models/Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit itaque, sequi accusamus molestias laudantium accusantium minus animi excepturi nobis esse ex recusandae maxime optio rem, neque amet voluptatibus, enim adipisci.';
 $num=250;
 
@@ -28,3 +28,22 @@ function cropString($str,$limit=20) {
 
 $result = cropString($str,$num);
 print_r($result);
+
+//-----------------------------------------------------
+
+//------запись в *.csv файл----------------------------
+$fileName = fopen("newFile.csv","a");
+
+$items=getDataItems();
+$items = array_map('writeArrItemPriceAndImage',$items);
+
+foreach ($items as $item) {
+    $fileDate = date("Y.m.d - H:i:s");
+    fwrite($fileName,$fileDate.';');
+    foreach ($item as $it) {
+        $write = $it.';'; 
+        fwrite($fileName,$write);
+    }   
+    fwrite($fileName, PHP_EOL);
+}
+fclose($fileName);
