@@ -30,4 +30,8 @@ $imagesData = [
 ];
 return $imagesData;
 }
+
+//------------Data for function cropString()------------
+
+
 ?>

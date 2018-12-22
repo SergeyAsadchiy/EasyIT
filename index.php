@@ -3,47 +3,48 @@ require 'config/config.php';
 require 'controllers/home.php';
 indexHome();
 
-
-//----------------------------------------------------
+//-----------------------------------------------------
 $str='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit itaque, sequi accusamus molestias laudantium accusantium minus animi excepturi nobis esse ex recusandae maxime optio rem, neque amet voluptatibus, enim adipisci. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit itaque, sequi accusamus molestias laudantium accusantium minus animi excepturi nobis esse ex recusandae maxime optio rem, neque amet voluptatibus, enim adipisci.models/Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit itaque, sequi accusamus molestias laudantium accusantium minus animi excepturi nobis esse ex recusandae maxime optio rem, neque amet voluptatibus, enim adipisci.';
-$num=250;
+$num=58;
 
-//-----функция обрезает текст после заданного колличества символов. Текст обрезается до целого слова.
-function cropString($str,$limit=20) {     
-    $lim = (is_numeric($limit)) ? $limit : 20;  // проверка на число. Если не число, то принимаем = 20                     
-    $arr = explode(' ', $str);                  // получение массива слов из строки. Разделители - "пробел".
-    $string = '';                               // инициализация суммирующей строки
+print_r(cropString($str,$num));
+echo "<br>";
 
-    foreach ($arr as $word) {
-        $string = $string.' '. $word;           // добавляем к строке пробел и слово для каждого элемента массива
-        if (strlen($string) >= $lim) {          // если длинна полученной строки больше заданной длинны
-            $outstring = $string.'...';         //      то добавляем к строке "..." 
-            break;                              //      и выходим из цикла
-        }                                       //
-        else                                    //
-            $cropString = $string;              // иначе $outstring равно текущему значению строки (т.е если 
-        }                                       //      заданное число больше длинны строки, то выведется вся строка)
-    return $cropString;                         // результат
-}
-
-$result = cropString($str,$num);
-print_r($result);
 
 //-----------------------------------------------------
+$fileName = "assets/files/new.csv";
 
-//------запись в *.csv файл----------------------------
-$fileName = fopen("newFile.csv","a");
+writeToFileFromArray($fileName);
 
-$items=getDataItems();
-$items = array_map('writeArrItemPriceAndImage',$items);
+$res = readFromFileToArray($fileName);
+var_dump($res);
 
-foreach ($items as $item) {
-    $fileDate = date("Y.m.d - H:i:s");
-    fwrite($fileName,$fileDate.';');
-    foreach ($item as $it) {
-        $write = $it.';'; 
-        fwrite($fileName,$write);
-    }   
-    fwrite($fileName, PHP_EOL);
+//----- запись массива в *.csv файл -------------------
+function writeToFileFromArray($fileName) {
+    $fName = fopen($fileName,"w");                      // открываем файл для записи 
+    $items = getDataItems();                            // получаем исходный массив
+
+    $firstRow = implode(';', array_keys($items[0]));    // получаем строку из ключей 
+    fwrite($fName,$firstRow.PHP_EOL);                   // записываем в файл - заголовок
+    foreach ($items as $item) {                         // для каждого товара            
+        $row = implode(';', array_values($item));       // получаем строку из значений
+        fwrite($fName,$row.PHP_EOL);                    // записывам в файл
+    }
+    fclose($fName);                                     // закрываем файл
 }
-fclose($fileName);
+
+//----- чтение из *.csv файла -------------------------
+function readFromFileToArray($fileName) {
+    $fName = fopen($fileName,"r");                      // открываем файл для чтения
+    $array = file($fileName,FILE_IGNORE_NEW_LINES);     // фомируем массив из строк файла(удаляем PHP_EOL)
+
+    $arrayKey = explode(';',$array[0]);                     // формируем массив ключей из нулевой строки (ключи)
+    $arrayValueString = array_slice($array,1,count($array));// формируем массив без ключей (обрезаем 0-ю строку)
+    foreach ($arrayValueString as $valueString) {       // для кадой строки массива:
+        $arrayValue = explode(';',$valueString);                // получаем из строки массив (id, name...)
+        $items[] = array_combine($arrayKey, $arrayValue);       // формируем новый массив, в кот. пишем
+    }                                                           // ключи из $arrayKey и значения массива 
+                                                                // из текущей строки $arrayValue          
+    fclose($fName);
+    return $items;
+}
