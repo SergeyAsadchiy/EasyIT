@@ -2,7 +2,7 @@
 
 $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
 
-function getDataItems(){
+function getDataItems() {
 $itemsData = [
     ['id' => '1', 'name' => 'Монитор',      'price' => '1200.00', 'stock' => '5', 'disc' => '10'],
     ['id' => '2', 'name' => 'Компьютер',    'price' => '4200.00', 'stock' => '7', 'disc' => '10'],
@@ -18,8 +18,7 @@ return $itemsData;
 }
 
 
-function getDataImages()
-{
+function getDataImages() {
 $imagesData = [
     ['id' => '1', 'img' => 'assets/images/monitor.jpeg'],
     ['id' => '2', 'img' => 'assets/images/computer.jpg'],
@@ -30,8 +29,5 @@ $imagesData = [
 ];
 return $imagesData;
 }
-
-//------------Data for function cropString()------------
-
 
 ?>

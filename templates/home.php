@@ -4,6 +4,8 @@
 ?>
 
 <main>
+  
+ <a href="admin/index.php">Admin</a>
 	<article>
 	<div class="container">
 	    <div class="row">
