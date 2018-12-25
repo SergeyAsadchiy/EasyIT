@@ -5,5 +5,4 @@
 		<input hidden type = "text" name = "userName" value = ''>
 		<input type = "submit" value ="Logout">
 	</form>
-</div>
-	
+</div>	

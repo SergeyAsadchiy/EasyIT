@@ -29,5 +29,3 @@ $imagesData = [
 ];
 return $imagesData;
 }
-
-?>

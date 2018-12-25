@@ -3,8 +3,6 @@
 	<form action = "index.php" method ="post">
 		Login: 
 		<input type = "text" name = "userName">
-		<input type = "submit" value ="Сохранить">
+		<input type = "submit" value ="Войти">
 	</form>
-</div>
-
-	
+</div>	

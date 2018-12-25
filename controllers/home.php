@@ -1,43 +1,90 @@
 <?php
 require 'models/model.php'; 
 
-function indexHome(){
+function indexHome() {
     $items  = getDataItems();
     $images = getDataImages();
     $noImage= getNoImage();
-    $items  = array_map('writeArrItemPriceAndImage', $items);
+    $items  = $recentItems = array_map('writeArrItemPriceAndImage', $items);
 
-    if (array_key_exists('id', $_GET)){                  // если $_GET содержит ключ 'id'
-        $items  = array_filter($items, "filterIdItems"); // то оставляем в массиве только товары
-    }                                                    // у которых 'id' совпадает с переданными в $_GET           
+    $items  = filterIdItem($items);// оставляет в массиве только отфильтрованный по id товар----//
+                                   // и записывает этот id в $_SESSION['recentItems'] (просмотренные товары)
+
+    UserRegistration();
+    //$_SESSION = array();
     
-    registration();
-
     include 'templates/header.php';
     include 'templates/nav.php';
+    userConfirmCookies();
     include 'templates/home.php';
+
+    showRecentViewed($recentItems); 
     include 'templates/footer.php';
 }
 
+//---- выводит 3 недавно просмотренных товара (без дублирования)----//
+function showRecentViewed($items) {
+    $_SESSION['recentItems'] = array_unique($_SESSION['recentItems']);     // убираем дублирование
+    $_SESSION['recentItems'] = array_slice ($_SESSION['recentItems'],0,3); // отсавляем 3 элемента 
+    include 'templates/components/RecentViewed.php';
+}
+
+// ---- выводит форму подтверждения cookies ----//
+// ! - работает только если вызывается до 'templates/home.php'
+function userConfirmCookies() {
+
+    $ucc = 'userConfirmCookies'; // чтобы легче читался код
+
+    if (isset($_POST[$ucc]) AND $_POST[$ucc] == 'on') {
+        setcookie($ucc, 'YES');
+    }
+
+    // После нажатия 'confirm' cookie создалась, но она пустая до первого  обновления (? почему).
+    // Поэтому что бы повторно не выводилась форма подтверждения cookies, проверяем еще и $_POST[].
+    if ((!isset($_COOKIE[$ucc]) OR $_COOKIE[$ucc] != 'YES')     
+    AND (!isset($_POST[$ucc])   OR $_POST[$ucc]   != 'on')) {
+        include 'templates/components/userConfirmCookies.php';
+    }
+}
+
 // ---- выводит форму регистрации или приветствие ----//
-function registration() {
-        if (isset($_POST['userName'])) {                    // если в POST передано 'userName'
-            $_SESSION['userName'] = $_POST['userName'];     // записываем 'userName' в $_SESSION 
-        }
-        $registred = !empty(trim($_SESSION['userName']));   // убираем пробелы
-        if (!$registred) {                                  // если 'userName' не пустой 
-            include 'templates/components/unregistred.php'; //      вызываем форму регистрации или приветствие  
-        } else {                                            // иначе
-            include 'templates/components/registred.php';   //      вызываем приветствие  
-        }
+function userRegistration() {
+    if (isset($_POST['userName'])) {                    // если в POST передано 'userName'
+        $_SESSION['userName'] = $_POST['userName'];     // записываем 'userName' в $_SESSION 
+    }
+
+    $Registred =                                        // зарегистрирован
+        (  isset($_SESSION['userName']) and             // если существует 'userName' и
+        !empty(trim($_SESSION['userName']))  ) ;        // 'userName' не пустой (после удаления пробелов)
+    
+    if ($Registred) {                                   // если зарегистрирован 
+        include 'templates/components/registred.php';   //      вызываем приветствие  
+    } else {                                            // иначе
+        include 'templates/components/unregistred.php'; //      вызываем форму регистрации       
+    }
+}
+
+//---- оставляет в массиве только отфильтрованный товар ----//
+function filterIdItem($items) {
+    if (array_key_exists('id', $_GET)){                     // если $_GET содержит ключ 'id'
+        $items  = array_filter($items, "equal_Id_Item_GET");// то оставляем в массиве только товар
+    }                                                       // у которого 'id' совпадает с переданными в $_GET
+    return $items;                                               
 }
 
 // ---- проверяет равны ли id товара и id, переданный в $_GET ---- //
-function filterIdItems($array) {
+//      и записывает это id в начало $_SESSION['recentItems']
+// вызывается в function filterIdItem()
+function equal_Id_Item_GET($array) {
     $result = false;
     if ($array['id'] == $_GET['id']) {
-            $result = True;
+        $result = True;
+
+        if (!isset($_SESSION['recentItems'])) {
+            $_SESSION['recentItems'] = array();          
         }
+        array_unshift($_SESSION['recentItems'], $array['id']);    
+    }
     return $result;
 }
 
@@ -128,6 +175,3 @@ function readFromFileToArray($fileName) {
     fclose($fName);
     return $items;
 }
-
-?>
-

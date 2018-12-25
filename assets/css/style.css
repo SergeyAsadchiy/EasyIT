@@ -1,0 +1,21 @@
+#userConfirmCookies {
+	max-width: 1100px;
+	background-color: #eee;
+	display: grid;
+	grid-template-columns: 5fr 1fr;
+	margin-right: auto;
+	margin-left: auto;
+	border-radius: 3px;	
+}
+
+#userConfirmCookies p {
+	margin: 0;
+	text-align: justify;
+	padding: 15px 40px 20px 40px;
+}
+
+#userConfirmCookies form {
+	margin: 0;
+	border-left: 2px solid #ccc;
+	padding: 50px 30px 0px 40px ;	
+}
