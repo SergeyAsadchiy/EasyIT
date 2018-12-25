@@ -15,9 +15,9 @@ function indexHome() {
     
     include 'templates/header.php';
     include 'templates/nav.php';
-    userConfirmCookies();
+    
     include 'templates/home.php';
-
+    userConfirmCookies();
     showRecentViewed($recentItems); 
     include 'templates/footer.php';
 }
