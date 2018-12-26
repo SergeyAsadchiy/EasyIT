@@ -3,7 +3,7 @@
 ?>
 <div class="container">
 
-  <h4 style="background-color: #eee; padding: 20px; margin-top: 40px;">
+  <h4 style="background-color: #eee; padding: 20px; margin 40px;">
       Недавно просмотренные товары:
   </h4>
   <div style="width: 60%;">

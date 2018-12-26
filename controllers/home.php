@@ -10,14 +10,11 @@ function indexHome() {
     $items  = filterIdItem($items);// оставляет в массиве только отфильтрованный по id товар----//
                                    // и записывает этот id в $_SESSION['recentItems'] (просмотренные товары)
 
-    UserRegistration();
-    //$_SESSION = array();
-    
     include 'templates/header.php';
+    UserRegistration();
     include 'templates/nav.php';
-    
-    include 'templates/home.php';
     userConfirmCookies();
+    include 'templates/home.php';
     showRecentViewed($recentItems); 
     include 'templates/footer.php';
 }
