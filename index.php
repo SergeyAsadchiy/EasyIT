@@ -1,22 +1,21 @@
 <?php
-require 'config/config.php';
-require 'controllers/home.php';
 session_start();
-indexHome();
+require 'config/config.php';
+require 'core/database.php';
 
-//-----------------------------------------------------
-$str='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit itaque, sequi accusamus molestias laudantium accusantium minus animi excepturi nobis esse ex recusandae maxime optio rem, neque amet voluptatibus, enim adipisci. Lorem ipsum dolor sit amet, consectetur adipisicing elit.';
-$num=58;
+require 'controllers/home.php';
 
-//print_r(cropString($str,$num));
-echo "<br>";
+$config = config('db');
+// init DB connection
+// 1
+//initGlobalDbConnection($config);
+//$db_connect = $global_db_connection;
+// 2
+//db();
+//$db_connect = db($config);
+// 3
+$db = Database::getInstance($config);
+$db_connect = $db->connection;
 
-//-----------------------------------------------------
-$fileName = "assets/files/new.csv";
-
-writeToFileFromArray($fileName);
-
-$res = readFromFileToArray($fileName);
-//var_dump($res);
-
-//-----------------------------------------------------
+$controller = new HomeController();
+$controller->index();

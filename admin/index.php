@@ -1,4 +1,8 @@
 <?php
 require '../config/config.php';
 require 'controll_admin.php';
-indexAdmin();
+
+
+
+$adminController = new AdminController();
+$adminController->index();

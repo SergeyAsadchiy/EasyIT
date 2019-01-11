@@ -1,31 +1,66 @@
 <?php 
 
-$description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
+/**
+ * 
+ */
+class Model
+{
+    public function getDataItems() {
+        $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
 
-function getDataItems() {
-$itemsData = [
-    ['id' => '1', 'name' => 'Монитор',      'price' => '1200.00', 'stock' => '5', 'disc' => '10'],
-    ['id' => '2', 'name' => 'Компьютер',    'price' => '4200.00', 'stock' => '7', 'disc' => '10'],
-    ['id' => '3', 'name' => 'Ноутбук',      'price' => '7700.00', 'stock' => '2', 'disc' => '10'],
-    ['id' => '4', 'name' => 'Принтер',      'price' => '1800.00', 'stock' => '1', 'disc' => '10'],
-    ['id' => '5', 'name' => 'Стол',         'price' => '1100.00', 'stock' => '0', 'disc' => '20'],
-    ['id' => '6', 'name' => 'Стул',         'price' => '2200.00', 'stock' => '0', 'disc' => '20'],
-    ['id' => '7', 'name' => 'Шкаф',         'price' => '1260.00', 'stock' => '8', 'disc' => '20'],
-    ['id' => '8', 'name' => 'Кресло',       'price' => '4250.00', 'stock' => '9', 'disc' => '20'],
-    ['id' => '9', 'name' => 'Диван',        'price' => '9800.00', 'stock' => '1', 'disc' => '30'],
-];
-return $itemsData;
+        $db = Database::getInstance();
+        $db_connect = $db->connection;
+        $result = $db_connect->query('SELECT * FROM products');
+        $itemsData = $result->fetch_all(MYSQLI_ASSOC);
+
+        $itemsDataObj = [];
+        foreach ($itemsData as $item) {             // для каждого массива товара в исходном массиве
+            $item['description'] = $description;    // дополняем дескрипшном 
+            $itemsDataObj[] = new Item($item);      // формируем массив объектов класса Item      
+        }
+    
+        return $itemsDataObj;                       // возвращаем массив объектов класса Item
+    }
 }
 
+/**
+ * 
+ */
+class Item
+{
+    public $id;
+    public $name;
+    public $price;
+    public $count;
+    public $disc;
+    public $description;
+    public $img;
 
-function getDataImages() {
-$imagesData = [
-    ['id' => '1', 'img' => 'assets/images/monitor.jpeg'],
-    ['id' => '2', 'img' => 'assets/images/computer.jpg'],
-    ['id' => '3', 'img' => 'assets/images/notebook.jpg'],
-    ['id' => '4', 'img' => 'assets/images/printer.jpg'],
-    ['id' => '7', 'img' => 'assets/images/wardrobe.jpg'],
-    ['id' => '8', 'img' => 'assets/images/armchair.jpg']
-];
-return $imagesData;
+    function __construct($itemRaw)
+    {
+        $this->id = $itemRaw['id'];
+        $this->name = $itemRaw['name'];
+        $this->count = $itemRaw['stock'];
+        $this->disc = $itemRaw['disc'];
+        $this->description = $itemRaw['description'];        
+        //$this->price = $itemRaw['price'];
+        $this->price = $this->getPrice($itemRaw['price']);
+        $this->img = $itemRaw['img'];
+    }
+
+    protected function getPrice($price)
+    {   
+        if ($this->count == 0) {
+            $price = 'нет в наличии';
+        } else {
+            if ($this->count < 2) {
+                $price = $price;
+            } else {
+                $price = $price * (1 - $this->disc / 100);
+            }
+        }
+    
+            return $price;
+    }
+
 }

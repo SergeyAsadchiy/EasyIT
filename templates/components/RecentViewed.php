@@ -3,18 +3,16 @@
 ?>
 <div class="container">
 
-  <h4 style="background-color: #eee; padding: 20px; margin 40px;">
-      Недавно просмотренные товары:
-  </h4>
-  <div style="width: 60%;">
-   <div class="row">
-       <?php 
-         foreach ($_SESSION['recentItems'] as $value) {
-              foreach ($items as $item) {
-                  if ($item['id'] == $value) include 'card.php';
-              }
-         }
-       ?>
-   </div>
-  </div> 
+    <h4 style="background-color: #eee; padding: 20px; margin 40px;">
+        Недавно просмотренные товары:
+    </h4>
+    <div style="width: 60%;">
+        <div class="row">
+            <?php  
+                foreach ($last3Items as $item) {
+                include 'templates/components/card.php';
+                }
+            ?>
+        </div>
+    </div> 
 </div>
