@@ -3,7 +3,6 @@
 
 
 	include 'templates/header.php';
-    $this->UserRegistration();
     include 'templates/nav.php';
     if (!$cookiesOK) include 'components/userConfirmCookies.php';
 ?>

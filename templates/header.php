@@ -18,5 +18,7 @@
 
 	<body>
 		<header>
-
+			<a href="http://localhost/php2/index.php?page=HomeController&act=index">Home </a>
+			<a href="http://localhost/php2/index.php?page=login&act=index">Login</a>
+			<a href="http://localhost/php2/index.php?page=login&act=check">Registration</a>			
 		</header>		

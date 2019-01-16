@@ -37,14 +37,15 @@ class HomeController
 
         if (isset($_SESSION['recentItems'])) {
             $_SESSION['recentItems'] = array_unique($_SESSION['recentItems']);     // убираем дублирование
-            $_SESSION['recentItems'] = array_slice ($_SESSION['recentItems'],0,3); // отсавляем 3 элемента   
-        }
+            $_SESSION['recentItems'] = array_slice ($_SESSION['recentItems'],0,3); // отсавляем 3 элемента 
 
-        foreach ($_SESSION['recentItems'] as $value) {
-            foreach ($items as $item) {
-                if ($item->id == $value) { $recentViewedItems[] = $item;}
-           }
+            foreach ($_SESSION['recentItems'] as $value) {
+                foreach ($items as $item) {
+                    if ($item->id == $value) { $recentViewedItems[] = $item;}
+                }
+            }
         }
+        else $recentViewedItems = array();
 
     return $recentViewedItems;    
     }
@@ -65,23 +66,6 @@ class HomeController
         AND (!isset($_POST[$ucc])   OR $_POST[$ucc]   != 'on')) {$cookiesOK = False;}
         else {$cookiesOK = True;}    
         return $cookiesOK;
-    }
-    
-    // ---- выводит форму регистрации или приветствие ----//
-    protected function userRegistration() {
-        if (isset($_POST['userName'])) {                    // если в POST передано 'userName'
-            $_SESSION['userName'] = $_POST['userName'];     // записываем 'userName' в $_SESSION 
-        }
-    
-        $Registred =                                        // зарегистрирован
-            (  isset($_SESSION['userName']) and             // если существует 'userName' и
-            !empty(trim($_SESSION['userName']))  ) ;        // 'userName' не пустой (после удаления пробелов)
-        
-        if ($Registred) {                                   // если зарегистрирован 
-            include 'templates/components/registred.php';   //      вызываем приветствие  
-        } else {                                            // иначе
-            include 'templates/components/unregistred.php'; //      вызываем форму регистрации       
-        }
     }
     
     //---- оставляет в массиве только отфильтрованный товар ----//

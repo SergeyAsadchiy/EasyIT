@@ -1,7 +1,7 @@
 
 <article>
 <div class="container">    
-    <a href="../index.php">Home </a>
+    <a href="http://localhost/php2/index.php?page=HomeController&act=index">Home </a>
     <table class="table table-bordered">
         <thead>
         <tr>

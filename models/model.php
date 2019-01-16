@@ -8,10 +8,12 @@ class Model
     public function getDataItems() {
         $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
 
-        $db = Database::getInstance();
-        $db_connect = $db->connection;
-        $result = $db_connect->query('SELECT * FROM products');
-        $itemsData = $result->fetch_all(MYSQLI_ASSOC);
+        $db = Database::getInstance();  //var_dump($db);
+        $db_connect = $db->connection;  //var_dump($db_connect);
+
+        $result = $db_connect->query('SELECT * FROM products');     //var_dump($result);
+        $itemsData = $result->fetch_all(MYSQLI_ASSOC);              //var_dump($itemsData); 
+
 
         $itemsDataObj = [];
         foreach ($itemsData as $item) {             // для каждого массива товара в исходном массиве
@@ -43,7 +45,6 @@ class Item
         $this->count = $itemRaw['stock'];
         $this->disc = $itemRaw['disc'];
         $this->description = $itemRaw['description'];        
-        //$this->price = $itemRaw['price'];
         $this->price = $this->getPrice($itemRaw['price']);
         $this->img = $itemRaw['img'];
     }

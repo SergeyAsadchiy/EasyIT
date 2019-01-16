@@ -18,3 +18,20 @@ function cropString($str,$limit=20) {
     return $cropString;                         // результат
 }
 
+
+    // ---- выводит форму регистрации или приветствие ----//
+    protected function userRegistration() {
+        if (isset($_POST['userName'])) {                    // если в POST передано 'userName'
+            $_SESSION['userName'] = $_POST['userName'];     // записываем 'userName' в $_SESSION 
+        }
+    
+        $Registred =                                        // зарегистрирован
+            (  isset($_SESSION['userName']) and             // если существует 'userName' и
+            !empty(trim($_SESSION['userName']))  ) ;        // 'userName' не пустой (после удаления пробелов)
+        
+        if ($Registred) {                                   // если зарегистрирован 
+            include 'templates/components/registred.php';   //      вызываем приветствие  
+        } else {                                            // иначе
+            include 'templates/components/unregistred.php'; //      вызываем форму регистрации       
+        }
+    }
