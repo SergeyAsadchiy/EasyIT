@@ -18,7 +18,18 @@
 
 	<body>
 		<header>
-			<a href="http://localhost/php2/index.php?page=HomeController&act=index">Home </a>
-			<a href="http://localhost/php2/index.php?page=login&act=index">Login</a>
-			<a href="http://localhost/php2/index.php?page=login&act=check">Registration</a>			
+			<div class = "container" id = "menu">
+				<a href="home">Home </a>
+				<a href="login">Login</a>
+				<a href="logout">Logout</a>
+				<a href="register">Registration</a>	
+				<div id = "showUser">
+					<?php
+						if (!empty($_SESSION['login_user_id']))  {
+						$model = new UserModel();							
+    					echo 'Привет, '.$model->readIdUser()['username'];
+    					}
+    				?>
+    			</div>
+    		</div>		
 		</header>		

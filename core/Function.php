@@ -20,7 +20,7 @@ function cropString($str,$limit=20) {
 
 
     // ---- выводит форму регистрации или приветствие ----//
-    protected function userRegistration() {
+    function userRegistration() {
         if (isset($_POST['userName'])) {                    // если в POST передано 'userName'
             $_SESSION['userName'] = $_POST['userName'];     // записываем 'userName' в $_SESSION 
         }
@@ -34,4 +34,10 @@ function cropString($str,$limit=20) {
         } else {                                            // иначе
             include 'templates/components/unregistred.php'; //      вызываем форму регистрации       
         }
+    }
+
+    function redirect($route)
+    {
+        header('Location: '.$route);
+        exit;
     }

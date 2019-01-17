@@ -68,6 +68,7 @@ class DB
 
     public static function connection()
     {
+        self::$connection->set_charset("utf8");
         return self::$connection;
     }
 }

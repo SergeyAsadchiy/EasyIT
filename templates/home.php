@@ -8,8 +8,7 @@
 ?>
 
 <main> 
-	<div class="container">
-		<a style="text" href="admin/index.php">Admin</a>
+	<div class="container" id="items">
 	    <div class="row">
 	      	<?php 
 	        	foreach ($items as $item) {

@@ -1,13 +1,13 @@
 <?php
-require 'models/model.php'; 
+require 'models/ItemModel.php'; 
+require_once ('Controller.php');
 /**
  * 
  */
-class HomeController
+class HomeController extends Controller
 {
-    
     public function index() {
-        $model  = new Model;
+        $model  = new ItemModel;
         $items  = $model->getDataItems();
         $itemsCopy  = $model->getDataItems();
         $noImage= getNoImage();                // из config.php 
@@ -24,12 +24,6 @@ class HomeController
         ];
 
         $this->view('home',$data);
-    }
-    
-    public function view($template, $data) {
-        extract($data);
-        include 'templates/'.$template.'.php';
-
     }
 
     //---- добавляет в новый массив  3 недавно просмотренных товара (без дублирования)----//
@@ -58,13 +52,14 @@ class HomeController
 
         if (isset($_POST[$ucc]) AND $_POST[$ucc] == 'on') {
             setcookie($ucc, 'YES');
+            header('Location: index.php'); // редирект на GET
+            exit;
         }
 
-        // После нажатия 'confirm' cookie создалась, но она пустая до первого  обновления (? почему).
-        // Поэтому что бы повторно не выводилась форма подтверждения cookies, проверяем еще и $_POST[].
-        if ((!isset($_COOKIE[$ucc]) OR $_COOKIE[$ucc] != 'YES')     
-        AND (!isset($_POST[$ucc])   OR $_POST[$ucc]   != 'on')) {$cookiesOK = False;}
-        else {$cookiesOK = True;}    
+        if (!isset($_COOKIE[$ucc]) OR $_COOKIE[$ucc] != 'YES')
+            $cookiesOK = False;
+        else 
+            $cookiesOK = True;    
         return $cookiesOK;
     }
     

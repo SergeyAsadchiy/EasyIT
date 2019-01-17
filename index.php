@@ -13,38 +13,23 @@ $db = Database::getInstance($config);	//var_dump($db);
 $db_connect = $db->connection;			//var_dump($db_connect);
 
 // Routes
-var_dump($_GET);
-
-$param['page'] = isset($_GET['page']) ? $_GET['page'] : 'home';
-$param['act'] = isset($_GET['act']) ? $_GET['act'] : 'index';
-
-
-var_dump($param);
-//exit;
-$name = $param['page'];
-$act = $param['act'];
-
+$param = (!empty($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : 'home';
 $routes = [
-    ['url' => 'home/index', 'do' => 'HomeController/index'],
-    //['url' => 'auth/login', 'do' => 'LoginController/index'],
+    ['url' => 'home', 		'do' => 'HomeController/index'],
+    ['url' => 'login', 		'do' => 'LoginController/login'],
+    ['url' => 'logout', 	'do' => 'LoginController/logout'],
+    ['url' => 'register',	'do' => 'LoginController/register'],
     //['url' => 'auth/login_post', 'do' => 'LoginController/login']
-    ['url' => 'login/index', 'do' => 'LoginController/index'],
-    ['url' => 'login/check', 'do' => 'LoginController/check'],
-    ['url' => 'registration/save', 'do' => 'LoginController/save']
 ];
-
-$route = array_filter($routes, function ($el) use($name, $act) {
-    return ($el['url'] == $name.'/'.$act);
+$route = array_filter($routes, function ($el) use($param) {
+    return ($el['url'] == $param);
 });
+var_dump($route);
+//if (empty($route)) {header('Location: templates/page404.php');exit;}
 
 $route = (array_values($route))[0];
-var_dump($route);
-
 list($contoller, $action) = explode('/', $route['do']);
-var_dump($contoller);
-var_dump($action);
+var_dump($_SESSION);
+
 $c = new $contoller();
 $c->$action();
-
-
-
