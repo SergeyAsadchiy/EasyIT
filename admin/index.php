@@ -2,6 +2,7 @@
 require '../config/config.php';
 require '../core/database.php';
 require 'controll_admin.php';
+echo getcwd();
 
 $config = config('db');
 // init DB connection

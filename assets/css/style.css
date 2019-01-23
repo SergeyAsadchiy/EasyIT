@@ -1,3 +1,11 @@
+#header{
+	background-color: #eee;
+	color: #aaa;
+	margin-top: 4px;
+	margin-bottom: 2px;
+	text-align:center;
+	padding: 10px;
+}
 #userConfirmCookies {
 	max-width: 1140px;
 	background-color: #eee;
@@ -28,6 +36,8 @@
 }
 
 #menu {
+	display: grid;
+	grid-template-columns: 14fr 2fr 1fr;
 	background-color: #eee;
 	padding: 10px;
 	margin-bottom: 2px;

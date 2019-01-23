@@ -1,6 +1,7 @@
 <?php 
-include 'Model.php';
-
+/**
+ * 
+ */
 Class ItemModel extends Model {
 
     public function getDataItems() {

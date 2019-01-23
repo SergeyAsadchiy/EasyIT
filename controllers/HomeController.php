@@ -1,6 +1,4 @@
 <?php
-require 'models/ItemModel.php'; 
-require_once ('Controller.php');
 /**
  * 
  */
@@ -10,9 +8,9 @@ class HomeController extends Controller
         $model  = new ItemModel;
         $items  = $model->getDataItems();
         $itemsCopy  = $model->getDataItems();
-        $noImage= getNoImage();                // из config.php 
+        $noImage= getNoImage();                 // из config.php 
 
-        $items = $this->filterIdItem($items);  // оставляет в массиве только отфильтрованный по id товар----//
+        $items = $this->filterIdItem($items);   // оставляет в массиве только отфильтрованный по id товар----//
                                                 // и записывает этот id в $_SESSION['recentItems'] (просмотренные товары)
         $cookiesOK = $this->userConfirmCookies();
 
@@ -31,7 +29,7 @@ class HomeController extends Controller
 
         if (isset($_SESSION['recentItems'])) {
             $_SESSION['recentItems'] = array_unique($_SESSION['recentItems']);     // убираем дублирование
-            $_SESSION['recentItems'] = array_slice ($_SESSION['recentItems'],0,3); // отсавляем 3 элемента 
+            $_SESSION['recentItems'] = array_slice ($_SESSION['recentItems'],0,3); // оcтавляем 3 элемента 
 
             foreach ($_SESSION['recentItems'] as $value) {
                 foreach ($items as $item) {

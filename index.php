@@ -1,16 +1,20 @@
 <?php
 session_start();
-require 'config/config.php';
-require 'core/database.php';
+require_once 'config/config.php';
+require_once 'core/database.php';
+require_once 'core/functions.php';
 
-require 'controllers/HomeController.php';
-require 'controllers/LoginController.php';
+spl_autoload_register(function($className){	
+	if (file_exists('controllers/'	.$className.'.php')) require_once 'controllers/'.$className.'.php';
+	if (file_exists('models/'		.$className.'.php')) require_once 'models/'		.$className.'.php';
+	if (file_exists('core/'			.$className.'.php')) require_once 'core/'		.$className.'.php';
+
+});
 
 $config = config('db');
-$db1 = DB::init($config);
+$db = DB::init($config);
 
-$db = Database::getInstance($config);	//var_dump($db);
-$db_connect = $db->connection;			//var_dump($db_connect);
+var_dump($_GET);
 
 // Routes
 $param = (!empty($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : 'home';
@@ -19,17 +23,16 @@ $routes = [
     ['url' => 'login', 		'do' => 'LoginController/login'],
     ['url' => 'logout', 	'do' => 'LoginController/logout'],
     ['url' => 'register',	'do' => 'LoginController/register'],
-    //['url' => 'auth/login_post', 'do' => 'LoginController/login']
+    ['url' => 'profile',	'do' => 'LoginController/profile'],
 ];
 $route = array_filter($routes, function ($el) use($param) {
     return ($el['url'] == $param);
 });
 var_dump($route);
-//if (empty($route)) {header('Location: templates/page404.php');exit;}
+if (empty($route)) {header('Location: templates/page404.php');exit;}
 
 $route = (array_values($route))[0];
 list($contoller, $action) = explode('/', $route['do']);
-var_dump($_SESSION);
 
 $c = new $contoller();
 $c->$action();

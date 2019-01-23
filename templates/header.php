@@ -18,18 +18,17 @@
 
 	<body>
 		<header>
-			<div class = "container" id = "menu">
-				<a href="home">Home </a>
-				<a href="login">Login</a>
-				<a href="logout">Logout</a>
-				<a href="register">Registration</a>	
-				<div id = "showUser">
-					<?php
-						if (!empty($_SESSION['login_user_id']))  {
-						$model = new UserModel();							
-    					echo 'Привет, '.$model->readIdUser()['username'];
-    					}
-    				?>
-    			</div>
-    		</div>		
+			<div class="container" id = "header">
+				<strong>header</strong>
+<?php /*
+    if (    empty(Auth::user()  ) ) 
+    { 
+        echo "<script>alert(\"Вы вошли на сайт, как гость.\");</script>"; 
+    }
+    else
+    { 
+        echo "<script>alert(\"Вы вошли на сайт как ".Auth::user()."\");</script>";
+    }
+*/?>
+			</div>	
 		</header>		
