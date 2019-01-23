@@ -4,7 +4,8 @@ require_once 'config/config.php';
 require_once 'core/database.php';
 require_once 'core/functions.php';
 
-spl_autoload_register(function($className){	
+// TODO сделать циклом с массивом
+spl_autoload_register(function($className){
 	if (file_exists('controllers/'	.$className.'.php')) require_once 'controllers/'.$className.'.php';
 	if (file_exists('models/'		.$className.'.php')) require_once 'models/'		.$className.'.php';
 	if (file_exists('core/'			.$className.'.php')) require_once 'core/'		.$className.'.php';
