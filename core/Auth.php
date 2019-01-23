@@ -16,8 +16,9 @@ class Auth
 
 	public function user()
 	{
+	    11
 		$model = new UserModel();
-		return $model->readIdUser()['username'];
+		return $model->readIdUser();
 	}
 
 	public function userId()
