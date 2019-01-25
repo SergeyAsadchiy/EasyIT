@@ -27,7 +27,7 @@ class LoginController extends Controller
             if(!$user) 
             {
                 $this->splashMessage('пользователь с указанным email не зарегистрирован');
-                redirect('login');
+                redirect('/auth/login');
             }                
             
             if (md5($password) == $user['password']) 
@@ -36,12 +36,12 @@ class LoginController extends Controller
                 Auth::login($user['id']);     
                 if ($_SESSION['profile_mem']) {         // если запомнили, что после логина нужно вернутья в profile
                     $_SESSION['profile_mem'] = false;   // сбрасываем запоминание 
-                    redirect('profile');                // и возвращаемся в profile
+                    redirect('/auth/profile');                // и возвращаемся в profile
                 }
                 redirect('home');
             } else {
                 $this->splashMessage('пароли не равны');
-                redirect('login');
+                redirect('/auth/login');
             }
 		} else { 				// если GET 
 			$data = [];
@@ -58,12 +58,12 @@ class LoginController extends Controller
                 $oldData = [
                     'email' => $_POST['email']
                 ];
-                redirect('register', $oldData, ['error' => $errors]);
+                redirect('/auth/register', $oldData, ['error' => $errors]);
             }
             $data = $_POST; var_dump($data);
             $userId = $this->model->create();
             $_SESSION['login_user_id'] = $userId;
-            redirect('/');
+            redirect('');
 		} else {                  // если GET
 			$data = [];
 			$this->view('register', $data);
@@ -88,7 +88,7 @@ class LoginController extends Controller
     {
         if (empty( Auth::userId() )) {          //  если попали  в profole без пользователя 
             $_SESSION['profile_mem'] = true;    //  то запоминаем, что нужно будет вернуться
-            redirect('login');                  //  и переходим в login
+            redirect('/auth/login');                  //  и переходим в login
         }
 
         if (!empty($_POST)) {
@@ -111,10 +111,10 @@ class LoginController extends Controller
         
         if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
             $this->splashMessage('Файл корректен и был успешно загружен.');
-            redirect('profile');
+            redirect('/auth/profile');
         }else {
             $this->splashMessage('Файл не загружен!');
-            redirect('profile');
+            redirect('/auth/profile');
         }
 
     }

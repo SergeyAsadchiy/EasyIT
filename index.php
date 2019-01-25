@@ -23,21 +23,21 @@ var_dump($_GET);
 $param = (!empty($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : 'home';
 var_dump($param);
 $routes = [
-//    ['url' => '', 				'do' => 'HomeController/index'],
-//    ['url' => '/', 				'do' => 'HomeController/index'],
-//    ['url' => 'home',             'do' => 'HomeController/index'],        
-//    ['url' => 'auth/login',       'do' => 'LoginController/login'],
-//    ['url' => 'auth/logout', 	    'do' => 'LoginController/logout'],
-//    ['url' => 'auth/register',	'do' => 'LoginController/register'],
-//    ['url' => 'auth/profile',	    'do' => 'LoginController/profile'],
-//    ['url' => 'auth/loadAvatar',  'do' => 'LoginController/loadAvatar'],
+    ['url' => '', 				'do' => 'HomeController/index'],
+    ['url' => '/', 				'do' => 'HomeController/index'],
+    ['url' => 'home',             'do' => 'HomeController/index'],        
+    ['url' => '/auth/login',       'do' => 'LoginController/login'],
+    ['url' => '/auth/logout', 	    'do' => 'LoginController/logout'],
+    ['url' => '/auth/register',	'do' => 'LoginController/register'],
+    ['url' => '/auth/profile',	    'do' => 'LoginController/profile'],
+    ['url' => '/auth/loadAvatar',  'do' => 'LoginController/loadAvatar'],
     
-    ['url' => 'home',           'do' => 'HomeController/index'],        
-    ['url' => 'login',          'do' => 'LoginController/login'],
-    ['url' => 'logout',         'do' => 'LoginController/logout'],
-    ['url' => 'register',       'do' => 'LoginController/register'],
-    ['url' => 'profile',        'do' => 'LoginController/profile'],
-    ['url' => 'loadAvatar',     'do' => 'LoginController/loadAvatar'],
+//    ['url' => 'home',           'do' => 'HomeController/index'],        
+//    ['url' => 'login',          'do' => 'LoginController/login'],
+//    ['url' => 'logout',         'do' => 'LoginController/logout'],
+//    ['url' => 'register',       'do' => 'LoginController/register'],
+//    ['url' => 'profile',        'do' => 'LoginController/profile'],
+//    ['url' => 'loadAvatar',     'do' => 'LoginController/loadAvatar'],
 ];
 
 $route = array_filter($routes, function ($el) use($param) {

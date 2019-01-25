@@ -6,7 +6,7 @@
 	
 	<p>Cтраница редактирования профиля пользователя <?php echo $data['username']?></p>
 	
-	<form action = "profile" method ="post">
+	<form action = "/auth/profile" method ="post">
 		<label for = "username">login: *</label>
 			<input type = "text"		name = "username" value="<?php echo $data['username']?>"><br>
 		<label for = "email">email: *</label>
@@ -18,7 +18,7 @@
 		<input type = "submit" value ="Сохранить">
 	</form>
 <hr>
-	<form enctype="multipart/form-data" action="loadAvatar" method="POST">
+	<form enctype="multipart/form-data" action="/auth/loadAvatar" method="POST">
     	<!-- Поле MAX_FILE_SIZE должно быть указано до поля загрузки файла -->
     	<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
     	<!-- Название элемента input определяет имя в массиве $_FILES -->
