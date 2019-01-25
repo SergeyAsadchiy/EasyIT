@@ -47,7 +47,7 @@ $routes = [
 ];
 
 $route = array_filter($routes, function ($el) use ($url) {
-    return ($el['url'] == $url);
+    return ($el['url'] == $url or $el['url'].'/' == $url);
 });
 var_dump($route);
 //if (empty($route)) {header('Location: templates/page404.php');exit;}
