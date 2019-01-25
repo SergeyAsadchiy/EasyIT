@@ -2,9 +2,11 @@
 /**
  * 
  */
-Class ItemModel extends Model {
+Class ItemModel extends Model 
+{
 
-    public function getDataItems() {
+    public function getDataItems() 
+    {
         $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
         $result = $this->connect->query('SELECT * FROM products');
         $itemsData = $result->fetch_all(MYSQLI_ASSOC);
@@ -54,7 +56,7 @@ class Item
             }
         }
     
-            return $price;
+        return $price;
     }
 
 }
