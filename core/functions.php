@@ -41,3 +41,17 @@ function cropString($str,$limit=20) {
         header('Location: '.$route);
         exit;
     }
+
+    function splashMessage($data = false, $class = 'info')
+    {
+        if($data) {
+            $_SESSION['error_login'] = $data;
+            $_SESSION['error_class'] = $class;
+        } else {
+            $message['data'] = $_SESSION['error_login'];
+            $message['class'] = $_SESSION['error_class'];
+            $_SESSION['error_login'] = '';
+            $_SESSION['error_class'] = '';
+            return $message;
+        }
+    }

@@ -31,4 +31,8 @@
     }
 */?>
 			</div>	
-		</header>		
+		</header>
+
+    <div class="message">
+        <?= splashMessage() ?>
+    </div>
