@@ -5,12 +5,12 @@
 		if (//!empty(Auth::userId())
 			!empty($_SESSION['login_user_id']) )  {
 			echo 
-			'<p>Привет, <a href="profile">'.Auth::user().'</a></p>						
-  			<a href="logout">Logout</a>';
+			'<p>Привет, <a href="/auth/profile">'.Auth::user().'</a></p>						
+  			<a href="/auth/logout">Logout</a>';
 		} else {
 			echo 
-			'<a href="register">Registration</a>	
-  			<a href="login">Login</a>';
+			'<a href="/auth/register">Registration</a>	
+  			<a href="/auth/login">Login</a>';
 		}
 	?>
     </div>	

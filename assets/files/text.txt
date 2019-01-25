@@ -1,0 +1,10 @@
+id;name;price;count;disc;description;img
+1;Монитор;1080;5;10;Some quick example text to build on the card title and make up the bulk of the card's content.;assets/images/monitor.jpeg
+2;Компьютер;3780;7;10;Some quick example text to build on the card title and make up the bulk of the card's content.;assets/images/computer.jpg
+3;Ноутбук;6930;2;10;Some quick example text to build on the card title and make up the bulk of the card's content.;assets/images/notebook.jpg
+4;Принтер;1800;1;10;Some quick example text to build on the card title and make up the bulk of the card's content.;assets/images/printer.jpg
+5;Стол;нет в наличии;0;20;Some quick example text to build on the card title and make up the bulk of the card's content.;
+6;Стул;нет в наличии;0;20;Some quick example text to build on the card title and make up the bulk of the card's content.;
+7;Шкаф;1008;8;20;Some quick example text to build on the card title and make up the bulk of the card's content.;assets/images/wardrobe.jpg
+8;Кресло;3400;9;20;Some quick example text to build on the card title and make up the bulk of the card's content.;assets/images/armchair.jpg
+9;Диван;9800;1;30;Some quick example text to build on the card title and make up the bulk of the card's content.;

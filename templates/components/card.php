@@ -3,7 +3,7 @@
            <div class="card-header bg-transparent border-success">Колличество товара: <?php echo $item->count ?></div>
            <div class="card-body text-success" style="min-height: 393.5px;" >
                <h5 class="card-title">
-                    <a href="index.php?id=<?php echo $item->id ?>" ><?php echo $item->name ?></a>
+                    <a href="home?id=<?php echo $item->id ?>" ><?php echo $item->name ?></a>
                 </h5>
                <img class="card-img-top" src="<?php echo $item->img?>" alt="textNoImage">
                <p class="card-text"><?php echo $item->description ?></p>

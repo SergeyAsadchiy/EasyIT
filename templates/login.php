@@ -8,7 +8,7 @@
     	echo '<div>'.$_SESSION['error_login'].'</div><br>';
     	}
 	?>
-	<form action = "login" method ="post">
+	<form action = "/auth/login" method ="post">
 		<label>   Login: <input type = "text"		name = "email"></label>
 		<label>Password: <input type = "password" 	name = "password"></label>
 		<input type = "submit" value ="Войти">

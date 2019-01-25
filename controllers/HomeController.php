@@ -7,6 +7,7 @@ class HomeController extends Controller
     public function index() {
         $model  = new ItemModel;
         $items  = $model->getDataItems();
+
         $itemsCopy  = $model->getDataItems();
         $noImage= getNoImage();                 // из config.php 
 

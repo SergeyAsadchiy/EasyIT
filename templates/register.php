@@ -4,7 +4,7 @@
 ?>
 <div class="container" id="login">
 	<p>Cтраница регистрации нового пользователя</p><br>
-	<form action = "register" method ="post">
+	<form action = "/auth/register" method ="post">
 		<label for = "username">Введите login:  </label>
 			<input type = "text"		name = "username"><br>
 		<label for = "email">Введите email:  </label>
