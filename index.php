@@ -18,11 +18,16 @@ $db = DB::init($config);
 //CSV::writeToFile('assets/files/text.txt');
 //CSV::readFromFile('assets/files/text.txt');
 
-var_dump($_GET);
+$param = $_GET;
 
 // Routes
-$param = (!empty($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : 'home';
-var_dump($param);
+$url = $_SERVER['REQUEST_URI'];
+
+$url = explode('?', $url)[0];
+
+var_dump($url);
+
+
 $routes = [
     ['url' => '', 				'do' => 'HomeController/index'],
     ['url' => '/', 				'do' => 'HomeController/index'],
@@ -41,8 +46,8 @@ $routes = [
 //    ['url' => 'loadAvatar',     'do' => 'LoginController/loadAvatar'],
 ];
 
-$route = array_filter($routes, function ($el) use($param) {
-    return ($el['url'] == $param);
+$route = array_filter($routes, function ($el) use ($url) {
+    return ($el['url'] == $url);
 });
 var_dump($route);
 //if (empty($route)) {header('Location: templates/page404.php');exit;}
