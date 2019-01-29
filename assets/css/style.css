@@ -6,6 +6,9 @@
 	text-align:center;
 	padding: 10px;
 }
+.messageOk{
+	color: black;
+}
 #userConfirmCookies {
 	max-width: 1140px;
 	background-color: #eee;
@@ -37,7 +40,7 @@
 
 #menu {
 	display: grid;
-	grid-template-columns: 14fr 2fr 1fr;
+	grid-template-columns: 1fr 15fr 2fr 1fr 1fr;
 	background-color: #eee;
 	padding: 10px;
 	margin-bottom: 2px;
@@ -49,6 +52,11 @@
 
 #showUser {
 	text-align:right;
+}
+
+#profile {
+	display: flex;
+	justify-content: center;
 }
 
 

@@ -17,7 +17,7 @@ class Auth
 	public function user()
 	{
 		$model = new UserModel();
-		return $model->readIdUser();
+		return $model->readIdUser()['username'];
 	}
 
 	public function userId()
@@ -30,6 +30,12 @@ class Auth
 	{
 		$model = new UserModel();
 		return $model->readIdUser()['admin'];
+	}
+
+	public function userAvatar()
+	{
+		$model = new UserModel();
+		return $model->readIdUser()['avatar'];
 	}
 
 }

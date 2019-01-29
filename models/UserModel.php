@@ -4,23 +4,20 @@ class UserModel extends Model
 {
     protected $table = 'users';
     
-    public function create()
+    public function create($data)
     {
-        $username = $_POST['username'];
-        $email =    $_POST['email'];
-        $password = md5($_POST['password']);
-
-        $stmt = $this->connect->prepare("INSERT INTO users (username,email, password) VALUES (? ,? ,?)");
-        var_dump($stmt);
-        $stmt->bind_param('sss', $username, $email, $password);
+        extract($data);
+        $password = md5($password);
+        
+        $stmt = $this->connect->prepare("INSERT INTO users (username, email, password, admin) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param('ssss', $username, $email, $password, $admin);
         $stmt->execute();
-        $result = $stmt->insert_id;var_dump($result);
+        $result = $stmt->insert_id;
         return $result;
     }
 
-    public function read()
+    public function read($email)
     {
-        $email = $_POST['email'];
         $stmt = $this->connect->prepare('SELECT * FROM users WHERE email = ?');
         $stmt->bind_param('s', $email);
         $stmt->execute();
@@ -38,5 +35,18 @@ class UserModel extends Model
         $result = $stmt->get_result();
         $data = $result->fetch_assoc();
         return $data;
+    }
+
+        public function update($data)
+    {
+        extract($data);
+        $password = md5($password);
+
+        $stmt = $this->connect->prepare("UPDATE users SET username = ?, email = ?, password = ?, admin = ?, avatar = ? WHERE id = ?");
+        $stmt->bind_param('sssssi', $username, $email, $password, $admin, $avatar, $id);
+        var_dump($stmt);
+        $stmt->execute();
+        $result = $stmt->insert_id;
+        return $result;
     }
 }

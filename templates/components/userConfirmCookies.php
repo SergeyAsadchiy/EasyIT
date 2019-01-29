@@ -1,7 +1,7 @@
 <div id = "userConfirmCookies">
 	<p>Мы используем cookies-файлы на этом сайте, для того чтобы обеспечить его максимальную эффективность, анализировать степень посещаемости (трафик) и, при необходимости, настраивать контент и рекламу под конкретного пользователя. Мы обрабатываем всю информацию, полученную из cookies-файлов в соответствии с постановлением о защите персональных данных.
 	</p>
-	<form action="index.php" method="post">
+	<form action="/home" method="post">
 		<LABEL><input type="checkbox" name="userConfirmCookies" onclick="this.form.submit()"> Я согласен </LABEL>		
 	</form>
 </div>

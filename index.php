@@ -25,18 +25,16 @@ $url = $_SERVER['REQUEST_URI'];
 
 $url = explode('?', $url)[0];
 
-var_dump($url);
-
-
 $routes = [
-    ['url' => '', 				'do' => 'HomeController/index'],
-    ['url' => '/', 				'do' => 'HomeController/index'],
-    ['url' => 'home',             'do' => 'HomeController/index'],        
-    ['url' => '/auth/login',       'do' => 'LoginController/login'],
+    ['url' => '', 				    'do' => 'HomeController/index'],
+    ['url' => '/', 				    'do' => 'HomeController/index'],
+    ['url' => 'home',               'do' => 'HomeController/index'],
+    ['url' => '/home',              'do' => 'HomeController/index'],        
+    ['url' => '/auth/login',        'do' => 'LoginController/login'],
     ['url' => '/auth/logout', 	    'do' => 'LoginController/logout'],
-    ['url' => '/auth/register',	'do' => 'LoginController/register'],
+    ['url' => '/auth/register',	    'do' => 'LoginController/register'],
     ['url' => '/auth/profile',	    'do' => 'LoginController/profile'],
-    ['url' => '/auth/loadAvatar',  'do' => 'LoginController/loadAvatar'],
+    ['url' => '/auth/loadAvatar',   'do' => 'LoginController/loadAvatar'],
     
 //    ['url' => 'home',           'do' => 'HomeController/index'],        
 //    ['url' => 'login',          'do' => 'LoginController/login'],
@@ -49,8 +47,7 @@ $routes = [
 $route = array_filter($routes, function ($el) use ($url) {
     return ($el['url'] == $url or $el['url'].'/' == $url);
 });
-var_dump($route);
-//if (empty($route)) {header('Location: templates/page404.php');exit;}
+if (empty($route)) {header('Location: templates/page404.php');exit;}
 
 $route = (array_values($route))[0];
 list($contoller, $action) = explode('/', $route['do']);
