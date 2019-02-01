@@ -1,6 +1,6 @@
 <nav>	
 	<div class = "container" id = "menu">
-	<a href="/home">Home</a>
+	<a href="/">Home</a>
 	<a href="https://github.com/SergeyAsadchiy/PHP2" target="_blank">github.com</a>
 	<?php
 		if (//!empty(Auth::userId())

@@ -38,4 +38,10 @@ class Auth
 		return $model->readIdUser()['avatar'];
 	}
 
+	public function userPassword()
+	{
+		$model = new UserModel();
+		return $model->readIdUser()['password'];
+	}
+
 }

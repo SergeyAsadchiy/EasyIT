@@ -7,6 +7,8 @@ require_once ('Controller.php');
  */
 class LoginController extends Controller
 {
+    use Validation;
+
 	protected $model;
     function __construct() {
         $this->model = new UserModel();
@@ -41,33 +43,35 @@ class LoginController extends Controller
 
 	public function register()
 	{
-		if (!empty($_POST)) {                         // если POST (поьзователь ввел данные и нажал СОХРАНИТЬ) 
-			$errors = $this->checkRegister();                // валидация
+		if (!empty($_POST)) {
+			$errors = $this->checkInputData();
             if ($errors) {
-                $oldData = [
-                    'email' => $_POST['email']
+
+                $oldData['username']    = !empty($_POST['username']) ? $_POST['username'] : '';
+                $oldData['email']       = !empty($_POST['email'])    ? $_POST['email']    : '';
+                $oldData['password']    = !empty($_POST['password']) ? $_POST['password'] : '';
+
+                $this->view('register', $oldData);
+
+            } else {
+                $data = [
+                    'username'  => $_POST['username'],
+                    'email'     => $_POST['email'],
+                    'password'  => $_POST['password'],
                 ];
-                redirect('/auth/register', $oldData, ['error' => $errors]);
+                $_SESSION['login_user_id'] = $this->model->create($data);
+                redirect('/');
             }
-            $data = [
-                'username'  => $_POST['username'],
-                'email'     => $_POST['email'],
-                'password'  => $_POST['password'],
-                'admin'     => $_POST['admin'],
-            ];
-            $_SESSION['login_user_id'] = $this->model->create($data);
-            redirect('/');
+
 		} else {                  
-			$data = [];
+			$data = [
+                'username' => '',
+                'email' => '',
+                'password' => ''
+            ];
 			$this->view('register', $data);
 		}
 	}
-
-
-    public function checkRegister()    
-    {
-    	return False;
-    }
 
 
     public function logout()    
@@ -85,26 +89,46 @@ class LoginController extends Controller
         }
 
         if (!empty($_POST)) {
-            $_FILES['userfile']['name'] = auth::userId().'.jpg';
-            $uploadDir = 'assets/images/avatar/';
-            $uploadFileName = basename($_FILES['userfile']['name']);
-            $uploadFile = $uploadDir . $uploadFileName;
-            if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
-                splashMessage('Файл корректен и был успешно загружен.');
-            } else {
-                splashMessage('Файл не загружен!');
-            }
 
-            $data = [
-                'username'  => $_POST['username'],
-                'email'     => $_POST['email'],
-                'password'  => $_POST['passwordNew'],
-                'admin'     => $_POST['admin'],
-                'avatar'    => $uploadFileName,
-                'id'        => $_SESSION['login_user_id']
-            ];
-            $this->model->update($data);
-            redirect('/'); 
+            $errorsCommon  = $this->checkInputData();
+            if (md5($_POST['password']) !== auth::userPassword()) {
+                $errorsProfile =True;
+                splashMessage('введен неверный пароль');
+            } else $errorsProfile =false;
+            
+            if ($errorsCommon or $errorsProfile) {
+
+                $oldData['username']    = !empty($_POST['username'])    ? $_POST['username']    : '';
+                $oldData['email']       = !empty($_POST['email'])       ? $_POST['email']       : '';
+                $oldData['password']    = !empty($_POST['password'])    ? $_POST['password']    : '';
+                $oldData['passwordNew'] = !empty($_POST['passwordNew']) ? $_POST['passwordNew'] : '';
+
+                $this->view('profile', $oldData);
+
+            } else {
+
+                if (!empty($_FILES['userfile']['name'])) {
+                    $_FILES['userfile']['name'] = auth::userId().'.jpg';
+                    $uploadDir = 'assets/images/avatar/';
+                    $uploadFileName = basename($_FILES['userfile']['name']);
+                    $uploadFile = $uploadDir . $uploadFileName;
+        
+                    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
+                        splashMessage('Файл корректен и был успешно загружен.');
+                    } else {
+                        splashMessage('Файл не загружен!');
+                    }
+                }
+    
+                $data['id']         = $_SESSION['login_user_id'];
+                $data['username']   = !empty($_POST['username'])    ? $_POST['username']    : null;
+                $data['email']      = !empty($_POST['email'])       ? $_POST['email']       : null;
+                $data['password']   = !empty($_POST['passwordNew']) ? $_POST['passwordNew'] : null;
+                $data['avatar']     = !empty($uploadFileName)       ? $uploadFileName       : null;
+    
+                $this->model->update($data);
+                redirect('/');
+            } 
 
         } else {
             $user = $this->model->readIdUser();
