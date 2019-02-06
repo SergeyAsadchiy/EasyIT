@@ -22,7 +22,6 @@ $db = DB::init($config);
 //CSV::readFromFile('assets/files/text.txt');
 
 $param = $_GET;
-var_dump($param);
 
 // Routes
 $url = $_SERVER['REQUEST_URI'];
