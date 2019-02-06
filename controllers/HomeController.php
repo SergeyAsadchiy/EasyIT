@@ -51,8 +51,7 @@ class HomeController extends Controller
 
         if (isset($_POST[$ucc]) AND $_POST[$ucc] == 'on') {
             setcookie($ucc, 'YES');
-            header('Location: index.php'); // редирект на GET
-            exit;
+            redirect('');
         }
 
         if (!isset($_COOKIE[$ucc]) OR $_COOKIE[$ucc] != 'YES')

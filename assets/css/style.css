@@ -40,7 +40,7 @@
 
 #menu {
 	display: grid;
-	grid-template-columns: 1fr 15fr 2fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 10fr 2fr 1fr 1fr;
 	background-color: #eee;
 	padding: 10px;
 	margin-bottom: 2px;

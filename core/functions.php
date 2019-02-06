@@ -43,7 +43,10 @@ function cropString($str,$limit=20) {
     }
 
     function splashMessage($data = false, $class = 'info')
-    {
+    {   
+        if (empty($_SESSION['error_message'])) $_SESSION['error_message'] = ''; // инициализация в новой сессии
+        if (empty($_SESSION['error_class'])) $_SESSION['error_class'] = '';     //
+
         if($data) {
             $_SESSION['error_message'] = $data;
             $_SESSION['error_class'] = $class;

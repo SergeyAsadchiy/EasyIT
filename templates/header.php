@@ -33,5 +33,8 @@
             <div class="messageOk">
                 <?= splashMessage() ?>
             </div>
+            <blockquote class="blockquote text-right"> Некая умная вещь. 
+                <footer class="blockquote-footer">Стив Джобс!</footer> 
+            </blockquote>﻿
 			</div>	
 		</header>

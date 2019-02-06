@@ -18,6 +18,17 @@ Class ItemModel extends Model
         return $itemsDataObj;                       // возвращаем массив объектов класса Item
     }
 
+    public function getDataItem($id) 
+    {
+        //$id = (int) $id;
+        $description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
+        $stmt = $this->connect->prepare('SELECT * FROM products WHERE id = ?');
+        $stmt->bind_param('s', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $itemDataObj = $result->fetch_all(MYSQLI_ASSOC);
+        return $itemDataObj[0];
+    }                         
 }
 
 /**

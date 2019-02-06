@@ -1,6 +1,7 @@
 <nav>	
 	<div class = "container" id = "menu">
 	<a href="/">Home</a>
+	<a href="/adminka">Adminka</a>
 	<a href="https://github.com/SergeyAsadchiy/PHP2" target="_blank">github.com</a>
 	<?php
 		if (//!empty(Auth::userId())
@@ -12,7 +13,7 @@
 		} else {
 			echo 
 			'<a href="/auth/register">Registration</a>
-			<img src="\assets\images\avatar\" alt="" Style = "width:30px">
+			<img src="\assets\images\avatar\unknown.jpg" alt="" Style = "width:30px">
   			<a href="/auth/login">Login</a>';	
 		}
 	?>
