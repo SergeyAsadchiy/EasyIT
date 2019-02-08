@@ -33,7 +33,7 @@
                     <td>'.$item->price.'</td>
                     <td>'.$item->count.'</td>
                     <td>'.$item->disc.'</td>
-                    <td><img src="'.$item->img.'" alt="noImage" Style = "width:30px"></td>
+                    <td><img src="assets/images/'.$item->img.'" alt="noImage" Style = "width:30px"></td>
                 </tr>
                 ';
               }

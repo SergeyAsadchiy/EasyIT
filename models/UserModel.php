@@ -2,7 +2,7 @@
 //require_once ('Model.php');
 class UserModel extends Model
 {
-    protected $table = 'users';
+    public $table = 'users';
     
     public function create($data)
     {
@@ -37,7 +37,7 @@ class UserModel extends Model
         return $data;
     }
 
-        public function update($data)
+    public function update($data)
     {
         extract($data);
 

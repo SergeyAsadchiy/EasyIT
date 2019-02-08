@@ -5,7 +5,7 @@
                <h5 class="card-title">
                     <a href="home?id=<?php echo $item->id ?>" ><?php echo $item->name ?></a>
                 </h5>
-               <img class="card-img-top" src="<?php echo $item->img?>" alt="textNoImage">
+               <img class="card-img-top" src="assets/images/<?php echo $item->img?>" alt="textNoImage">
                <p class="card-text"><?php echo $item->description ?></p>
            </div>
            <div class="card-footer bg-transparent border-success">Цена - <strong><?php echo $item->price ?></strong> грн.

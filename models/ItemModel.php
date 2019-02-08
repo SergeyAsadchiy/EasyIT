@@ -28,7 +28,29 @@ Class ItemModel extends Model
         $result = $stmt->get_result();
         $itemDataObj = $result->fetch_all(MYSQLI_ASSOC);
         return $itemDataObj[0];
-    }                         
+    }
+
+    public function addItem($name, $description, $price, $stock, $disc, $image = 'NoImage.jpg')
+    {
+        $stmt = $this->connect->prepare("INSERT INTO $this->table (name, description, price, stock, disc, image) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssdiis', $name, $description, $price, $stock, $disc, $image);
+        $stmt->execute();
+        $result = $stmt->insert_id;
+        return $result; 
+    }
+    
+    public function updateItem($data)
+    {
+                var_dump($data);
+        extract($data);
+        var_dump($this->table);
+        $stmt = $this->connect->prepare("UPDATE $this->table SET name = ?, description = ?, price = ?, stock = ?, disc = ?, img = ? WHERE id = $id");
+        $stmt->bind_param('ssdiis', $name, $description, $price, $stock, $disc, $img);
+        $stmt->execute();
+        $result = $stmt->insert_id;
+        var_dump($result);
+        return true; 
+    }                      
 }
 
 /**

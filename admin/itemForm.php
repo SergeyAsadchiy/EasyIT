@@ -9,10 +9,10 @@
 
 <div class="container" id="itemForm">
 	
-	<p>Cтраница редактирования товара <strong> <?php echo $item['name'		] ?> </strong></p>
-	<img src="/<?=$item['img']?>" alt="" Style = "width:150px; margin-bottom:20px;"><br>
+	<p>Cтраница редактирования товара <strong> <?php echo $item['name'] ?> </strong></p>
+	<img src="assets/images/<?=$item['img']?>" alt="" Style = "width:250px; margin-bottom:20px;"><br>
 
-	<form action = "/adminka/edit" method ="post" enctype="multipart/form-data">	
+	<form action = "/adminka/editItem" method ="post" enctype="multipart/form-data">	
 		<div id="profile">
 
 			<div style="text-align:right">	
@@ -21,17 +21,18 @@
 				<label for = "price">		цена:			</label><br>
 				<label for = "stock">		остаток: 		</label><br>
 				<label for = "disc">		скидка			</label><br>
-				<label for = "photo">		загрузка изображения товара:	</label><br>				        	 
+				<label for = "userfile">	загрузка изображения товара:	</label><br>				        	 
 			</div>
 
 			<div>
+			   	<input type = "hidden" 		name = "id" 			value = "<?php echo $_GET['id'			] ?>">
 				<input type = "text"		name = "name" 			value = "<?php echo $item['name'		] ?>">	<br>
-				<input type = "text"		name = "description"	value = "описание товара					">	<br>
+				<input type = "text"		name = "description"	value = "<?php echo $item['description'	] ?>">	<br>
 				<input type = "text"		name = "price" 			value = "<?php echo $item['price'		] ?>">	<br>
 				<input type = "text"		name = "stock" 			value = "<?php echo $item['stock'		] ?>">	<br>
 				<input type = "text"		name = "disc" 			value = "<?php echo $item['disc'		] ?>">	<br>				
-			   	<input type = "hidden" 		name = "MAX_FILE_SIZE" value="300000">
-			   	<input type = "file"		name = "photo" 	style = "height: 35px">	<br>
+			   	<input type = "hidden" 		name = "MAX_FILE_SIZE"  value = "300000">
+			   	<input type = "file"		name = "userfile" 	style = "height: 35px">	<br>
 			</div>
 
 		</div>
