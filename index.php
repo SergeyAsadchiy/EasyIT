@@ -15,6 +15,9 @@ spl_autoload_register(
     }
 );
 
+ini_set('display_errors',1);
+error_reporting(E_ALL);
+
 $config = config('db');
 $db = DB::init($config);
 
@@ -22,23 +25,39 @@ $db = DB::init($config);
 //CSV::readFromFile('assets/files/text.txt');
 
 $param = $_GET;
+//var_dump($param);
 
 // Routes
-$url = $_SERVER['REQUEST_URI'];
-
+if (!empty($_SERVER['REQUEST_URI'])) {
+    $url = trim($_SERVER['REQUEST_URI'], '');
+}
 $url = explode('?', $url)[0];
 
 $routes = [
-    ['url' => '', 				    'do' => 'HomeController/index'],
-    ['url' => '/', 				    'do' => 'HomeController/index'],
-    ['url' => 'home',               'do' => 'HomeController/index'],
-    ['url' => '/home',              'do' => 'HomeController/index'],        
-    ['url' => '/auth/login',        'do' => 'LoginController/login'],
-    ['url' => '/auth/logout', 	    'do' => 'LoginController/logout'],
-    ['url' => '/auth/register',	    'do' => 'LoginController/register'],
-    ['url' => '/auth/profile',	    'do' => 'LoginController/profile'],
-    ['url' => '/adminka',           'do' => 'AdminController/index'],
-    ['url' => '/adminka/editItem',  'do' => 'AdminController/editItem'],
+    ['url' => '', 				    'do' => 'HomeController/index'      ],
+    ['url' => '/', 				    'do' => 'HomeController/index'      ],
+    ['url' => 'home',               'do' => 'HomeController/index'      ],
+    ['url' => '/home',              'do' => 'HomeController/index'      ],
+
+    ['url' => '/auth/login',        'do' => 'LoginController/login'     ],
+    ['url' => '/auth/logout', 	    'do' => 'LoginController/logout'    ],
+    ['url' => '/auth/register',	    'do' => 'LoginController/register'  ],
+    ['url' => '/auth/profile',	    'do' => 'LoginController/profile'   ],
+
+    ['url' => '/adminka',           'do' => 'AdminController/index'     ],
+    ['url' => '/adminka/addItem',   'do' => 'AdminController/addItem'   ],
+    ['url' => '/adminka/editItem',  'do' => 'AdminController/editItem'  ],
+    ['url' => '/adminka/deleteItem','do' => 'AdminController/deleteItem'],
+
+    ['url' => '/category',          'do' => 'CategoryController/show'   ],
+    ['url' => '/category/add',      'do' => 'CategoryController/add'    ],
+    ['url' => '/category/edit',     'do' => 'CategoryController/edit'   ],    
+    ['url' => '/category/delete',   'do' => 'CategoryController/delete' ],    
+
+    ['url' => '/cart',              'do' => 'CartController/show'       ],
+    ['url' => '/cart/add',          'do' => 'CartController/add'        ],
+    ['url' => '/cart/edit',         'do' => 'CartController/edit'       ],
+    ['url' => '/cart/delete',       'do' => 'CartController/delete'     ],
 ];
 
 $route = array_filter($routes, function ($el) use ($url) {

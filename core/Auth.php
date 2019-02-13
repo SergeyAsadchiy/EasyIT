@@ -4,41 +4,41 @@
  */
 class Auth
 {
-	public function login($userId)	
+	public static function login($userId)	
 	{
 		$_SESSION['login_user_id'] = $userId;
 	}
 
-	public function logout()	
+	public static function logout()	
 	{
 		$_SESSION['login_user_id'] = null;
 	}
 
-	public function user()
+	public static function user()
 	{
 		$model = new UserModel();
 		return $model->readIdUser()['username'];
 	}
 
-	public function userId()
+	public static function userId()
 	{
 		$model = new UserModel();
 		return $model->readIdUser()['id'];
 	}
 
-	public function isAdmin()
+	public static function isAdmin()
 	{
 		$model = new UserModel();
 		return $model->readIdUser()['admin'];
 	}
 
-	public function userAvatar()
+	public static function userAvatar()
 	{
 		$model = new UserModel();
 		return $model->readIdUser()['avatar'];
 	}
 
-	public function userPassword()
+	public static function userPassword()
 	{
 		$model = new UserModel();
 		return $model->readIdUser()['password'];

@@ -5,21 +5,31 @@
 class HomeController extends Controller
 {
     public function index() {
-        $model  = new ItemModel;
-        $items  = $model->getDataItems();
+        $model      = new ItemModel;
 
-        $itemsCopy  = $model->getDataItems();
-        $noImage= getNoImage();                 // из config.php 
+        $limit = 3;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $total = $model->count();
+        $pag = new Pagination($page, $limit, $total);
+        $start = $pag->getStart();
+        $pagination = $pag->pagination();
 
-        $items = $this->filterIdItem($items);   // оставляет в массиве только отфильтрованный по id товар----//
-                                                // и записывает этот id в $_SESSION['recentItems'] (просмотренные товары)
-        $cookiesOK = $this->userConfirmCookies();
+        $items      = $model->getDataItems($start, $limit);
+        $itemsCopy  = $items;
+        $noImage    = getNoImage();                  
+        $items      = $this->filterIdItem($items);   
+        $cookiesOK  = $this->userConfirmCookies();
 
         $data = [
             'items' => $items,
-            'last3Items' => $this->recentViewedItems($itemsCopy),
+            'categories' => Category::categoryList(),
+            'last3Items' => $items,
+
             //'cookiesOK' => $this->userConfirmCookies()
-            'cookiesOK' => $cookiesOK
+            'cookiesOK' => $cookiesOK,
+
+            'pagination' => $pagination,
+            'page'      => $page
         ];
 
         $this->view('home',$data);
@@ -33,8 +43,9 @@ class HomeController extends Controller
             $_SESSION['recentItems'] = array_slice ($_SESSION['recentItems'],0,3); // оcтавляем 3 элемента 
 
             foreach ($_SESSION['recentItems'] as $value) {
+                var_dump($_SESSION['recentItems']);
                 foreach ($items as $item) {
-                    if ($item->id == $value) { $recentViewedItems[] = $item;}
+                    if ($item->id == $value) { $recentViewedItems[] = $item;} else echo'не равны';
                 }
             }
         }

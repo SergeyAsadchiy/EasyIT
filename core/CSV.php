@@ -9,7 +9,7 @@ class CSV
     {
         $fName = fopen($fileName,"w");                      // открываем файл для записи 
         $model  = new ItemModel;
-        $items  = $model->getDataItems();                   // получаем из DB 	 массив объектов-товаров
+        $items  = $model->getDataItems(0, $this->model->count());                   // получаем из DB 	 массив объектов-товаров
         $items  = array_map('get_object_vars',$items);		// преобразовываем в массив массивов-товаров
 
 	    $firstRow = implode(';', array_keys($items[0]));    // получаем строку из ключей 
