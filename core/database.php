@@ -72,3 +72,31 @@ class DB
         return self::$connection;
     }
 }
+
+class DB_PDO
+{
+    public      static $connection;
+    protected   static $dsn;
+
+    public static function init($config_PDO = []) 
+    {
+        if (!self::$connection) 
+        {   
+            try {
+                self::$dsn = 'mysql:host='.$config_PDO['host'].';dbname='.$config_PDO['db'].';charset='.$config_PDO['charset'];
+                self::$connection = new PDO(self::$dsn, $config_PDO['user'], $config_PDO['password']);
+                self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                exit($e->getMessage());
+            }
+        }
+        return self::$connection;
+    }
+
+
+    public static function connection()
+    {
+        return self::$connection;
+    }
+}

@@ -12,10 +12,17 @@ function config($type) {
             'user' 		=> 'root',
             'password' 	=> '',
             'db' 		=> 'shop'
-        ]
+        ],
+        
+        'db_PDO' => [
+            'host'      => 'localhost',
+            'db'        => 'shop',
+            'charset'   => 'utf8mb4',
+            'user'      => 'root',
+            'password'  => ''
+        ],
     ];
     $result = $all_config[$type];
     return $result;
 }
-
 

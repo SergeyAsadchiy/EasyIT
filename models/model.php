@@ -5,10 +5,12 @@
 class Model
 {
     protected $connect;
+    protected $connect_PDO;
     public $table;
     
     function __construct() {
-        $this->connect = DB::connection();
+        $this->connect      = DB::connection();
+        $this->connect_PDO  = DB_PDO::connection();
     }
 
     public function readId($id)

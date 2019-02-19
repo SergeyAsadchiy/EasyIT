@@ -21,6 +21,11 @@ error_reporting(E_ALL);
 $config = config('db');
 $db = DB::init($config);
 
+$config_PDO = config('db_PDO');
+$db_PDO = DB_PDO::init($config_PDO);
+
+
+
 //CSV::writeToFile('assets/files/text.txt');
 //CSV::readFromFile('assets/files/text.txt');
 

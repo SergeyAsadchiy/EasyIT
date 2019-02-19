@@ -7,29 +7,43 @@ class HomeController extends Controller
     public function index() {
         $model      = new ItemModel;
 
-        $limit = 3;
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $total = $model->count();
-        $pag = new Pagination($page, $limit, $total);
-        $start = $pag->getStart();
+        $limit      = 3;
+        $page       = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $total      = $model->count();
+        $pag        = new Pagination($page, $limit, $total);
+        $start      = $pag->getStart();
         $pagination = $pag->pagination();
 
-        $items      = $model->getDataItems($start, $limit);
+        //$items      = $model->getDataItems($start, $limit);
+
+
+        $filter = [];
+        if (!empty($_GET['category_id'])) $filter['cat'] = (int)$_GET['category_id']; 
+        $filter['priceMin'] = 0;
+        $filter['priceMax'] = 1000000;
+        if (!empty($_GET['id'])) $filter['ids'] = (int)$_GET['id'];
+        if (!empty($limit)) $filter['start'] = $start;
+        if (!empty($limit)) $filter['limit'] = $limit; 
+
+
+        //$fields = ['name', 'price'];
+        $items = $model->getDataItems($filter);
+
         $itemsCopy  = $items;
-        $noImage    = getNoImage();                  
+        //$noImage    = getNoImage();                  
         $items      = $this->filterIdItem($items);   
         $cookiesOK  = $this->userConfirmCookies();
 
         $data = [
-            'items' => $items,
+            'items'      => $items,
             'categories' => Category::categoryList(),
             'last3Items' => $items,
 
             //'cookiesOK' => $this->userConfirmCookies()
-            'cookiesOK' => $cookiesOK,
+            'cookiesOK'  => $cookiesOK,
 
             'pagination' => $pagination,
-            'page'      => $page
+            'page'       => $page
         ];
 
         $this->view('home',$data);

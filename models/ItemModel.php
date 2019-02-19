@@ -5,23 +5,70 @@
 Class ItemModel extends Model 
 {
     public $table = 'products';
-    public function getDataItems($start, $limit) 
+
+/*
+    $filter = ['cat' => 55, 'priceM' => 100, 'ids' => [1,2,3,4]];
+    $fields = ['name', 'price'];
+    $fields = 'count';
+    */
+    public function listItems($filter = [], $fields = null)
     {
-        
-        if (empty($_GET['category_id'])) {
-            $stmt = $this->connect->prepare('SELECT * FROM products LIMIT ?, ?');
-            $stmt->bind_param('ii', $start, $limit);
-            $stmt->execute();
-            $result = $stmt->get_result();            
+        if(!$fields) {
+            //$fields = ['name', 'price'];
+            $fields = ['*'];
         }
-        if (!empty( $_GET['category_id'])) {
-            $id   = $_GET['category_id'];
-            $stmt = $this->connect->prepare('SELECT * FROM products WHERE category_id = ? LIMIT ?, ?');
-            $stmt->bind_param('iii', $id, $start, $limit);
-            $stmt->execute();
-            $result = $stmt->get_result();
-        }    
-        $itemsData = $result->fetch_all(MYSQLI_ASSOC);
+        $sql = " FROM $this->table ";
+        if (!empty($filter)) {
+            $sql = $sql. 'WHERE ';
+            if (key_exists('cat', $filter)) {
+                $sql .= 'category_id = ?';
+            }
+            if (key_exists('priceMin', $filter)) {
+                if (key_exists('cat', $filter)) $sql .= ' AND ';
+                $sql .= 'price > ?';
+            }
+            if (key_exists('priceMax', $filter)) {
+                if (key_exists('cat', $filter) OR key_exists('priceMin', $filter)) $sql .= ' AND ';
+                $sql .= 'price < ?';
+            }
+            if (key_exists('ids', $filter)) {
+                if (key_exists('cat', $filter) OR key_exists('priceMin', $filter) OR key_exists('priceMax', $filter)) $sql .= ' AND ';
+                //$sql .= 'id IN (?)';
+                //$filter['ids'] = "(". join(",", $filter['ids']) .")";
+                $sql .= 'id = ?';
+            }
+            if (key_exists('start', $filter) AND key_exists('limit', $filter)) {
+                $sql .= ' LIMIT ?, ?';
+            }
+        }
+        if ($fields) {
+            if ($fields == 'count') {
+                $sql = 'SELECT COUNT(*) '.$sql;
+            } else {
+                $sql = 'SELECT ' .join(",", $fields) .$sql;
+            }
+        }
+
+        $stmt = $this->connect_PDO->prepare($sql);
+        if (!empty($filter)) {
+            $i = 1;
+            $type = null;
+            foreach ($filter as $key => $fl) {
+                    $type  = (in_array($key, ['cat', 'priceMin', 'priceMax', 'ids', 'start', 'limit'])) ? PDO::PARAM_INT : PDO::PARAM_STR;
+                    $stmt->bindValue($i, $fl, $type);
+                    $i++;
+            }
+        }
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;  
+    }
+
+
+
+    public function getDataItems($filter) 
+    {
+        $itemsData = $this->listItems($filter);
 
         $itemsDataObj = [];
         foreach ($itemsData as $item) {             // для каждого массива товара в исходном массиве
@@ -57,7 +104,8 @@ Class ItemModel extends Model
             $result['password'] = $stmt->insert_id;
         }
         return $result; 
-    }                      
+    }
+
 }
 
 /**
