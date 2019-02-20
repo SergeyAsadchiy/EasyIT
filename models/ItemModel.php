@@ -13,6 +13,13 @@ Class ItemModel extends Model
     */
     public function listItems($filter = [], $fields = null)
     {
+
+                // SELECT * FROM products  WHERE
+                // category_id = 1 AND 
+                // price < 9999 AND price > 1111 AND 
+                // id IN (1,2,3,4,5,6,7,8,9) AND  
+                // name LIKE '%ноут%' 
+                // LIMIT 0, 5
         if(!$fields) {
             //$fields = ['name', 'price'];
             $fields = ['*'];
@@ -37,6 +44,12 @@ Class ItemModel extends Model
                 //$filter['ids'] = "(". join(",", $filter['ids']) .")";
                 $sql .= 'id = ?';
             }
+            if (key_exists('like', $filter)) {
+                if (key_exists('cat', $filter) OR key_exists('priceMin', $filter) OR key_exists('priceMax', $filter) OR key_exists('ids', $filter)) $sql .= ' AND ';
+                //$sql .= 'id IN (?)';
+                //$filter['ids'] = "(". join(",", $filter['ids']) .")";
+                $sql .= 'name LIKE ?';
+            }
             if (key_exists('start', $filter) AND key_exists('limit', $filter)) {
                 $sql .= ' LIMIT ?, ?';
             }
@@ -55,7 +68,7 @@ Class ItemModel extends Model
             $type = null;
             foreach ($filter as $key => $fl) {
                     $type  = (in_array($key, ['cat', 'priceMin', 'priceMax', 'ids', 'start', 'limit'])) ? PDO::PARAM_INT : PDO::PARAM_STR;
-                    $stmt->bindValue($i, $fl, $type);
+                    $stmt->bindValue($i, $fl, $type);var_dump($stmt); var_dump($fl);
                     $i++;
             }
         }

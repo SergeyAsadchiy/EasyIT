@@ -7,7 +7,7 @@ class HomeController extends Controller
     public function index() {
         $model      = new ItemModel;
 
-        $limit      = 3;
+        $limit      = 15;
         $page       = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $total      = $model->count();
         $pag        = new Pagination($page, $limit, $total);
@@ -18,12 +18,15 @@ class HomeController extends Controller
 
 
         $filter = [];
+        $like = '';
         if (!empty($_GET['category_id'])) $filter['cat'] = (int)$_GET['category_id']; 
         $filter['priceMin'] = 0;
         $filter['priceMax'] = 1000000;
         if (!empty($_GET['id'])) $filter['ids'] = (int)$_GET['id'];
+        if (!empty($like)) $filter['like'] = $like;
         if (!empty($limit)) $filter['start'] = $start;
-        if (!empty($limit)) $filter['limit'] = $limit; 
+        if (!empty($limit)) $filter['limit'] = $limit;
+
 
 
         //$fields = ['name', 'price'];

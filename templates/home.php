@@ -13,6 +13,7 @@
     </div>
 
     <?php include 'categories.php' ?>
+    <?php include 'filters.php' ?>
     <article> 
     <div class="container" id="items">
         <div class="row">
