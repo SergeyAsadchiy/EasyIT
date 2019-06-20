@@ -68,7 +68,7 @@ Class ItemModel extends Model
             $type = null;
             foreach ($filter as $key => $fl) {
                     $type  = (in_array($key, ['cat', 'priceMin', 'priceMax', 'ids', 'start', 'limit'])) ? PDO::PARAM_INT : PDO::PARAM_STR;
-                    $stmt->bindValue($i, $fl, $type);var_dump($stmt); var_dump($fl);
+                    $stmt->bindValue($i, $fl, $type);
                     $i++;
             }
         }

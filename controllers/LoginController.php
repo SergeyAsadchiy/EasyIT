@@ -3,7 +3,7 @@ require_once 'models/UserModel.php';
 require_once 'core/functions.php';
 require_once ('Controller.php');
 /**
- * 
+ *
  */
 class LoginController extends Controller
 {
@@ -15,18 +15,18 @@ class LoginController extends Controller
     }
 
 	public function login()
-	{
-		if (!empty($_POST)) { 
+	{dd($_POST);
+		if (!empty($_POST)) {
             $user = $this->model->read($_POST['email']);
             if(!$user)             {
                 splashMessage('пользователь с указанным email не зарегистрирован');
                 redirect('/auth/login');
-            }                
-            
+            }
+
             if (md5($_POST['password']) == $user['password'])             {
-                Auth::login($user['id']);     
+                Auth::login($user['id']);
                 if ($_SESSION['profile_mem'])  {        // если запомнили, что после логина нужно вернутья в profile
-                    $_SESSION['profile_mem'] = false;   // сбрасываем запоминание 
+                    $_SESSION['profile_mem'] = false;   // сбрасываем запоминание
                     redirect('/auth/profile');          // и возвращаемся в profile
                 }
                 redirect('/');
@@ -60,10 +60,10 @@ class LoginController extends Controller
                     'password'  => $_POST['password'],
                 ];
                 $_SESSION['login_user_id'] = $this->model->create($data);
-                redirect('/');
+                redirect('/admin/login');
             }
 
-		} else {                  
+		} else {
 			$data = [
                 'username' => '',
                 'email' => '',
@@ -74,7 +74,7 @@ class LoginController extends Controller
 	}
 
 
-    public function logout()    
+    public function logout()
     {
         Auth::logout();
         redirect('/');
@@ -83,7 +83,7 @@ class LoginController extends Controller
 
     public function profile()
     {
-        if (empty( Auth::userId() )) {          //  если попали  в profole без пользователя 
+        if (empty( Auth::userId() )) {          //  если попали  в profole без пользователя
             $_SESSION['profile_mem'] = true;    //  то запоминаем, что нужно будет вернуться после логина()
             redirect('/auth/login');                  //  и переходим в login
         }
@@ -95,7 +95,7 @@ class LoginController extends Controller
                 $errorsProfile =True;
                 splashMessage('введен неверный пароль');
             } else $errorsProfile =false;
-            
+
             if ($errorsCommon or $errorsProfile) {
 
                 $oldData['username']    = !empty($_POST['username'])    ? $_POST['username']    : '';
@@ -112,23 +112,23 @@ class LoginController extends Controller
                     $uploadDir = 'assets/images/avatar/';
                     $uploadFileName = basename($_FILES['userfile']['name']);
                     $uploadFile = $uploadDir . $uploadFileName;
-        
+
                     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
                         splashMessage('Файл корректен и был успешно загружен.');
                     } else {
                         splashMessage('Файл не загружен!');
                     }
                 }
-    
+
                 $data['id']         = $_SESSION['login_user_id'];
                 $data['username']   = !empty($_POST['username'])    ? $_POST['username']    : null;
                 $data['email']      = !empty($_POST['email'])       ? $_POST['email']       : null;
                 $data['password']   = !empty($_POST['passwordNew']) ? $_POST['passwordNew'] : null;
                 $data['avatar']     = !empty($uploadFileName)       ? $uploadFileName       : null;
-    
+
                 $this->model->update($data);
                 redirect('/');
-            } 
+            }
 
         } else {
             $user = $this->model->readIdUser();

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	$description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
 
@@ -14,10 +14,10 @@
 
     <?php include 'categories.php' ?>
     <?php include 'filters.php' ?>
-    <article> 
+    <article>
     <div class="container" id="items">
         <div class="row">
-            <?php 
+            <?php
                 foreach ($items as $item) {
                     include 'components/card.php';
                 }
@@ -26,12 +26,12 @@
     </div>
 </article>
 	<div align="center">
-        <h4>    <?php echo $pagination ?></h4><br>   
+        <h4>    <?php echo $pagination ?></h4><br>
     </div>
 </main>
 
-<?php 
+<?php
 	include 'templates/components/RecentViewed.php';
-    include 'templates/footer.php'; 
+    include 'templates/footer.php';
 
 

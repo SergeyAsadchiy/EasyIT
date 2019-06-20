@@ -36,5 +36,6 @@
             <blockquote class="blockquote text-right"> Некая умная вещь. 
                 <footer class="blockquote-footer">Стив Джобс!</footer> 
             </blockquote>﻿
+                <p>hello</p>
 			</div>	
 		</header>

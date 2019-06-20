@@ -3,12 +3,12 @@
 class UserModel extends Model
 {
     public $table = 'users';
-    
+
     public function create($data)
     {
         extract($data);
         $password = md5($password);
-        
+
         $stmt = $this->connect->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param('sss', $username, $email, $password);
         $stmt->execute();
@@ -44,7 +44,7 @@ class UserModel extends Model
         $stmt = $this->connect->prepare("UPDATE users SET username = ?, email = ? WHERE id = ?");
         $stmt->bind_param('ssi', $username, $email, $id);
         $stmt->execute();
-        $result['userNameEmail'] = $stmt->insert_id; 
+        $result['userNameEmail'] = $stmt->insert_id;
 
         if (!empty($password)) {
             $password = md5($password);
@@ -66,4 +66,4 @@ class UserModel extends Model
 
 }
 
-     
+

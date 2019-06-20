@@ -1,9 +1,12 @@
 <?php
 /**
- * 
+ *
  */
 class HomeController extends Controller
 {
+    /**
+     *
+     */
     public function index() {
         $model      = new ItemModel;
 
@@ -13,13 +16,14 @@ class HomeController extends Controller
         $pag        = new Pagination($page, $limit, $total);
         $start      = $pag->getStart();
         $pagination = $pag->pagination();
+        $aa = new CategoryModel();
 
         //$items      = $model->getDataItems($start, $limit);
 
 
         $filter = [];
         $like = '';
-        if (!empty($_GET['category_id'])) $filter['cat'] = (int)$_GET['category_id']; 
+        if (!empty($_GET['category_id'])) $filter['cat'] = (int)$_GET['category_id'];
         $filter['priceMin'] = 0;
         $filter['priceMax'] = 1000000;
         if (!empty($_GET['id'])) $filter['ids'] = (int)$_GET['id'];
@@ -33,8 +37,8 @@ class HomeController extends Controller
         $items = $model->getDataItems($filter);
 
         $itemsCopy  = $items;
-        //$noImage    = getNoImage();                  
-        $items      = $this->filterIdItem($items);   
+        //$noImage    = getNoImage();
+        $items      = $this->filterIdItem($items);
         $cookiesOK  = $this->userConfirmCookies();
 
         $data = [
@@ -57,7 +61,7 @@ class HomeController extends Controller
 
         if (isset($_SESSION['recentItems'])) {
             $_SESSION['recentItems'] = array_unique($_SESSION['recentItems']);     // убираем дублирование
-            $_SESSION['recentItems'] = array_slice ($_SESSION['recentItems'],0,3); // оcтавляем 3 элемента 
+            $_SESSION['recentItems'] = array_slice ($_SESSION['recentItems'],0,3); // оcтавляем 3 элемента
 
             foreach ($_SESSION['recentItems'] as $value) {
                 var_dump($_SESSION['recentItems']);
@@ -68,9 +72,9 @@ class HomeController extends Controller
         }
         else $recentViewedItems = array();
 
-    return $recentViewedItems;    
+    return $recentViewedItems;
     }
-    
+
     // ---- выводит форму подтверждения cookies ----//
     // ! - работает только если вызывается до 'templates/home.php'
     protected function userConfirmCookies() {
@@ -84,11 +88,11 @@ class HomeController extends Controller
 
         if (!isset($_COOKIE[$ucc]) OR $_COOKIE[$ucc] != 'YES')
             $cookiesOK = False;
-        else 
-            $cookiesOK = True;    
+        else
+            $cookiesOK = True;
         return $cookiesOK;
     }
-    
+
     //---- оставляет в массиве только отфильтрованный товар ----//
     protected function filterIdItem($items) {
 
@@ -97,17 +101,17 @@ class HomeController extends Controller
                 // вызывается в function filterIdItem()
                 function equal_Id_Item_GET($items) {
                     $result = false;
-                    
+
                     if (!isset($_SESSION['recentItems'])) {
-                       $_SESSION['recentItems'] = array();          
+                       $_SESSION['recentItems'] = array();
                     }
 
                     if ($items->id == $_GET['id']) {
                         $result = True;
-                        array_unshift($_SESSION['recentItems'], $items->id);    
+                        array_unshift($_SESSION['recentItems'], $items->id);
                     }
                     return $result;
-                } 
+                }
 
         if (array_key_exists('id', $_GET)){                            // если $_GET содержит ключ 'id'
            $filteredItems  = array_filter($items, "equal_Id_Item_GET");// то оставляем в массиве только товар
@@ -116,21 +120,21 @@ class HomeController extends Controller
 
         return $filteredItems;
     }
-    
-   
-    
+
+
+
     // ---- подставляет изображение товара либо NoImage ---- //
-    public function getImage($f_images,$f_item,$f_NoImage){   
+    public function getImage($f_images,$f_item,$f_NoImage){
         $f_OutImage = $f_NoImage;
         foreach ($f_images as $f_image) {
             if ($f_item['id'] == $f_image['id']) {
                 $f_OutImage = $f_image['img'];
-                break;                 
+                break;
             }
         }
-        return($f_OutImage);    
+        return($f_OutImage);
     }
-    
+
 }
 
 
@@ -142,9 +146,9 @@ class HomeController extends Controller
        if (array_key_exists('id', $_GET)){                              // если $_GET содержит ключ 'id'
            $filteredItems  = array_filter($items, "$this->equal_Id_Item_GET"); // то оставляем в массиве только товар
        }                                                                // у которого 'id' совпадает с переданными в $_GET
-       return $filteredItems;                                              
+       return $filteredItems;
     }
-    
+
     // ---- проверяет равны ли id товара и id, переданный в $_GET ---- //
     //      и записывает это id в начало $_SESSION['recentItems']
     // вызывается в function filterIdItem()
@@ -152,12 +156,12 @@ class HomeController extends Controller
         $result = false;
         if ($array->id == $_GET['id']) {
             $result = True;
-    
+
             if (!isset($_SESSION['recentItems'])) {
-                $_SESSION['recentItems'] = array();          
+                $_SESSION['recentItems'] = array();
             }
-            array_unshift($_SESSION['recentItems'], $array->id);    
+            array_unshift($_SESSION['recentItems'], $array->id);
         }
         return $result;
-    }  
+    }
     */

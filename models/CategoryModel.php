@@ -1,11 +1,11 @@
-<?php 
+<?php
 /**
- * 
+ *
  */
-Class CategoryModel extends Model 
+Class CategoryModel extends Model
 {
 
-    public function getCategories() 
+    public function getCategories()
     {
         $result = $this->connect->query("SELECT * FROM $this->table");
         $data = $result->fetch_all(MYSQLI_ASSOC);
@@ -21,7 +21,7 @@ Class CategoryModel extends Model
         $result = $stmt->insert_id;
         return $result;
     }
-    
+
     public function update($data)
     {
         extract($data);

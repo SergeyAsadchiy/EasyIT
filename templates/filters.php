@@ -21,7 +21,7 @@ if (!empty($_POST['priceMax'])) {
     $redirect_url = filter_url('priceMax', $_POST['priceMax']); var_dump($redirect_url);
     header("Location:" . "$redirect_url" );
     var_dump($_GET);
-    var_dump($redirect_url);
+    var_dump($redirect_url); 
 }
 ?>
 

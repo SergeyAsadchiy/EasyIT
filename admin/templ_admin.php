@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     //$description = "Some quick example text to build on the card title and make up the bulk of the card's content.";
 
@@ -10,17 +10,17 @@
 
 <main>
     <article>
-        <div class="container">  
-                <a href="/category">категории</a><br>  
+        <div class="container">
+                <a href="/category">категории</a><br>
             <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th scope="col">ID      </th>
                     <th scope="col">Название</th>
-                    <th scope="col">Описание</th>                    
+                    <th scope="col">Описание</th>
                     <th scope="col">Цена    </th>
                     <th scope="col">Остаток </th>
-                    <th scope="col">Скидка  </th>    
+                    <th scope="col">Скидка  </th>
                     <th scope="col">Фото    </th>
                     <th scope="col">Категория    </th>
                     <th scope="col">        </th>
@@ -29,13 +29,14 @@
                 </thead>
                 <tbody>    <br>
             <?php
+
               foreach ($items as $item) {
                 echo'
                 <tr>
                     <th>'.$item->id.'</th>
                     <td><a href="/adminka/editItem?id='.$item->id.'">'.cropString($item->name, 30).'</a></td>
                     <td>'.cropString($item->description, 80).'</td>
-                    <td>'.$item->price.'</td>                    
+                    <td>'.$item->price.'</td>
                     <td>'.$item->count.'</td>
                     <td>'.$item->disc.'</td>
                     <td><img src="assets/images/products/'.$item->img.'" alt="assets/images/noImage.png" Style = "width:40px"></td>

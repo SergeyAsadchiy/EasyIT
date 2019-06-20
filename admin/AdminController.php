@@ -1,9 +1,9 @@
 <?php
 /**
- * 
+ *
  */
 class AdminController
-{   
+{
 
     protected $model;
     protected $table;
@@ -39,11 +39,11 @@ class AdminController
                 } else {
                     splashMessage('Файл не загружен!');
                 }
-            } 
+            }
 
             $data['category_id'] = !empty($_POST['category_id'  ])  ? $_POST['category_id']  : null;
             $data['name'    ]    = !empty($_POST['name'         ])  ? $_POST['name'       ]  : null;
-            $data['price'   ]    = !empty($_POST['price'        ])  ? $_POST['price'      ]  : null;            
+            $data['price'   ]    = !empty($_POST['price'        ])  ? $_POST['price'      ]  : null;
             $data['stock'   ]    = !empty($_POST['stock'        ])  ? $_POST['stock'      ]  : null;
             $data['disc'    ]    = !empty($_POST['disc'         ])  ? $_POST['disc'       ]  : null;
             $data['img'     ]    = !empty($uploadFileName       )   ? $uploadFileName        : null;
@@ -54,7 +54,7 @@ class AdminController
             $data = [];
             $this->view('addItemForm', $data);
         }
-        
+
     }
 
     public function editItem()
@@ -71,12 +71,12 @@ class AdminController
                 } else {
                     splashMessage('Файл не загружен!');
                 }
-            } 
+            }
 
             $data['category_id'] = !empty($_POST['category_id'  ])  ? $_POST['category_id']  : null;
             $data['id'      ]    = !empty($_POST['id'           ])  ? $_POST['id'         ]  : null;
             $data['name'    ]    = !empty($_POST['name'         ])  ? $_POST['name'       ]  : null;
-            $data['price'   ]    = !empty($_POST['price'        ])  ? $_POST['price'      ]  : null;            
+            $data['price'   ]    = !empty($_POST['price'        ])  ? $_POST['price'      ]  : null;
             $data['stock'   ]    = !empty($_POST['stock'        ])  ? $_POST['stock'      ]  : null;
             $data['disc'    ]    = !empty($_POST['disc'         ])  ? $_POST['disc'       ]  : null;
             $data['img'     ]    = !empty($uploadFileName       )   ? $uploadFileName        : null;
@@ -90,7 +90,7 @@ class AdminController
             ];
             $this->view('editItemForm', $data);
         }
-        
+
     }
 
     public function deleteItem()

@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo"hello";
 require_once 'config/config.php';
 require_once 'core/database.php';
 require_once 'core/functions.php';
@@ -56,8 +57,8 @@ $routes = [
 
     ['url' => '/category',          'do' => 'CategoryController/show'   ],
     ['url' => '/category/add',      'do' => 'CategoryController/add'    ],
-    ['url' => '/category/edit',     'do' => 'CategoryController/edit'   ],    
-    ['url' => '/category/delete',   'do' => 'CategoryController/delete' ],    
+    ['url' => '/category/edit',     'do' => 'CategoryController/edit'   ],
+    ['url' => '/category/delete',   'do' => 'CategoryController/delete' ],
 
     ['url' => '/cart',              'do' => 'CartController/show'       ],
     ['url' => '/cart/add',          'do' => 'CartController/add'        ],
